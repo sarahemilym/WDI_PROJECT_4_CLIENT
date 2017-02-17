@@ -22,6 +22,10 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider){
     templateUrl: '/js/views/users/login.html',
     controller: 'LoginCtrl',
     controllerAs: 'login'
+  })
+  .state('test', {
+    url: '/test',
+    template: '<h1>Test</h1>'
   });
   $urlRouterProvider.otherwise('/');
 }
