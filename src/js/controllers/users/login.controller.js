@@ -1,0 +1,20 @@
+angular
+.module('MuSync')
+.controller('LoginCtrl', LoginCtrl);
+
+LoginCtrl.$inject = ['User', 'CurrentUserService'];
+function LoginCtrl(User, CurrentUserService){
+  const vm = this;
+
+  vm.login = () => {
+    User
+    .login(vm.user)
+    .$promise
+    .then(data => {
+      CurrentUserService.getUser();
+      console.log(data);
+    }, err => {
+      console.log(err);
+    });
+  };
+}
