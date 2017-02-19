@@ -25,7 +25,9 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider){
   })
   .state('test', {
     url: '/test',
-    template: '<h1>Test</h1>'
+    templateUrl: '<h1>Test</h1>',
+    controller: 'TestCtrl',
+    controllerAs: 'test'
   });
   $urlRouterProvider.otherwise('/');
 }
