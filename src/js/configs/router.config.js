@@ -18,7 +18,7 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
     redirectUri: window.location.origin,
     optionalUrlParams: ['state'],
     requireUrlParams: ['scope'],
-    scope: ['playlist-read-private playlist-read-collaborative user-library-read'],
+    scope: ['playlist-read-private playlist-read-collaborative user-library-read playlist-modify-public playlist-modify-private'],
     scopePrefix: '',
     scopeDeliminator: ',',
     responseType: 'token',

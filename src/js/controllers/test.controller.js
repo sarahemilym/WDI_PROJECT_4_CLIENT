@@ -12,7 +12,8 @@ function TestCtrl($http, $auth, $window) {
   vm.searchTracks = searchTracks;
   vm.seeProfile = seeProfile;
   vm.createPlaylistsOn = createPlaylistsOn;
-  // vm.createPlaylists = createPlaylists;
+  vm.createPlaylists = createPlaylists;
+  vm.addSongsToPlaylist = addSongsToPlaylist;
   vm.logout = logout;
   vm.clear = clear;
   vm.searchstatusArtists = false;
@@ -20,15 +21,15 @@ function TestCtrl($http, $auth, $window) {
 
   function authorize(spotify) {
     $auth.authenticate(spotify)
-  .then(function(response) {
-  console.log('working', response)
-  })
-  .catch(function(response) {
-    console.log('something went wrong')
-  });
-}
+    .then(function(response) {
+      console.log('working', response)
+    })
+    .catch(function(response) {
+      console.log('something went wrong')
+    });
+  }
 
-// THIS IS WORKING! But hardcoded for now
+  // THIS IS WORKING! But hardcoded for now
   function trialRequest(){
     vm.token = $window.localStorage.getItem('satellizer_token');
     console.log('token', vm.token)
@@ -42,97 +43,117 @@ function TestCtrl($http, $auth, $window) {
     });
   };
 
-function seeProfile(){
-  console.log('clicked')
-  vm.token = $window.localStorage.getItem('satellizer_token');
-  $http
+  function seeProfile(){
+    console.log('clicked')
+    vm.token = $window.localStorage.getItem('satellizer_token');
+    $http
     .get('https://api.spotify.com/v1/me',
     { headers: {Authorization: `Bearer ${vm.token}`}
-})
-.then(response => {
-  console.log('user profile', response)
-})
+  })
+  .then(response => {
+    console.log('user profile', response)
+  })
 }
 
-  // function authorize() {
-  //   $http({
-  //     method: 'GET',
-  //     url: 'https://accounts.spotify.com/authorize/?client_id=a66b7d062208471c95fc1f931d933478&response_type=code&redirect_uri=http://localhost:4000/test&scope=user-read-private%20user-read-email&state=34fFs29kd09'
-  //   }).then(response => {
-  //     console.log(response);
-  //   });
-  // }
 
+function searchArtists() {
+  vm.searchstatusArtists = false;
+  const text = angular.element(document.querySelector('#search-text')).val();
+  console.log(text);
 
+  $http({
+    method: 'GET',
+    url: 'https://api.spotify.com/v1/search?q='+text+'&type=artist'
+  }).then(response => {
+    vm.results = response.data.artists.items;
 
-  // $http({
-  //   method: 'GET',
-  //   url: 'https://api.spotify.com/v1/albums/0sNOF9WDwhWunNAHPD3Baj'
-  // }).then(response => {
-  //   vm.music = response.data;
-  //   vm.uri = response.data.tracks.items[0].uri;
-  //   console.log('uri', vm.uri);
-  //   console.log('music', response.data);
-  //   // const data = response.data;
-  // }, err => {
-  //   console.log('error', err);
-  // });
+    vm.searchstatusArtists = true;
+    vm.searchstatusTracks = false;
+    angular.element(document.querySelector('#search-text')).val('');
+    console.log('search result', vm.results);
+  });
+}
 
-  function searchArtists() {
+function createPlaylistsOn() {
+  vm.createPlaylistsOnOff = true;
+}
+
+function searchTracks(){
+  vm.searchstatus = false;
+  const text = angular.element(document.querySelector('#searchArtists-text')).val();
+  $http({
+    method: 'GET',
+    url: 'https://api.spotify.com/v1/search?q='+text+'&type=track'
+  }).then(response => {
+    vm.results = response.data.tracks.items;
+    // vm.uri = response.data.tracks.items.uri;
     vm.searchstatusArtists = false;
-    const text = angular.element(document.querySelector('#search-text')).val();
-    console.log(text);
-
-    $http({
-      method: 'GET',
-      url: 'https://api.spotify.com/v1/search?q='+text+'&type=artist'
-    }).then(response => {
-      vm.results = response.data.artists.items;
-
-      vm.searchstatusArtists = true;
-      vm.searchstatusTracks = false;
-      angular.element(document.querySelector('#search-text')).val('');
-      console.log('search result', vm.results);
-    });
-  }
-
-  function createPlaylistsOn() {
-    vm.createPlaylistsOnOff = true;
-  }
-
-  function searchTracks(){
-    vm.searchstatus = false;
-    const text = angular.element(document.querySelector('#searchArtists-text')).val();
-    $http({
-      method: 'GET',
-      url: 'https://api.spotify.com/v1/search?q='+text+'&type=track'
-    }).then(response => {
-      vm.results = response.data.tracks.items;
-      // vm.uri = response.data.tracks.items.uri;
-      vm.searchstatusArtists = false;
-      vm.searchstatusTracks = true;
-      angular.element(document.querySelector('#searchArtists-text')).val('');
-      console.log('search result', vm.results);
-    });
-  }
+    vm.searchstatusTracks = true;
+    angular.element(document.querySelector('#searchArtists-text')).val('');
+    console.log('search result', vm.results);
+  });
+}
 
 
-  function clear(){
-    vm.searchstatus = false;
-  }
+function clear(){
+  vm.searchstatus = false;
+}
 
-  // function createPlaylists() {
-  //   $http({
-  //     method: 'POST',
-  //     url: 'https://api.spotify.com/v1/users/{user_id}/playlists',
-  //     authorization: 'Bearer kez0xs9exeurdtp0all3di'
-  //   }).then(response => {
-  //     console.log('spotify', response)
-  //   });
-  // }
-  function logout() {
-    // $auth.removeToken();
-    $window.localStorage.removeItem('satellizer_token');
-    console.log('logged out')
-  }
+function createPlaylists(){
+  vm.token = $window.localStorage.getItem('satellizer_token');
+  const url = 'https://api.spotify.com/v1/users/sarahemily-m/playlists'
+  const parameter = JSON.stringify({'name': 'Playlist Trial', 'public': false, 'collaborative': true});
+  $http
+  .post(url, parameter, vm.token)
+  .then(function(data) {
+    console.log(data);
+  }).
+  error(function(data) {
+    console.log(data)
+  });
+}
+
+// THis is also working, get error but the information posts and comes up in spotify app
+function addSongsToPlaylist(){
+  vm.token = $window.localStorage.getItem('satellizer_token');
+  const url = 'https://api.spotify.com/v1/users/sarahemily-m/playlists/0pSPwjItUTT1VxoZIVuZhK/tracks?uris=spotify:track:6XOPuFLGzY4ZGAKvmb8jou'
+  // const parameter = JSON.stringify({'name': 'Playlist Trial', 'public': false, 'collaborative': true});
+  $http
+  .post(url, vm.token)
+  .then(function(data) {
+    console.log(data);
+  }).
+  error(function(data) {
+    console.log(data)
+  });
+}
+
+
+// const data = { 'name': 'First Trial Playlist', 'public': true, 'collaborative': true };
+// $http
+//   .post('https://api.spotify.com/v1/users/sarahemily-m/playlists',
+//     JSON.stringify(data),
+//   {
+//     headers: {Authorization: `Bearer ${vm.token}` }
+//   }).then(response => {
+//     console.log('playlist', response)
+//   }).catch(function(response) {
+//     console.log('This definitely didnt work')
+//   });
+// }
+//   $http({
+//     method: 'POST',
+//     url: 'https://api.spotify.com/v1/users/sarahemily-m/playlists',
+//      JSON.stringify(data)
+//     authorization: 'Bearer ${token}'
+//   }).then(response => {
+//     console.log('spotify', response)
+//   });
+// }
+
+function logout() {
+  // $auth.removeToken();
+  $window.localStorage.removeItem('satellizer_token');
+  console.log('logged out')
+}
 }
