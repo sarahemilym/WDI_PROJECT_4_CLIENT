@@ -44,16 +44,17 @@ function TestCtrl($http, $auth, $window) {
   //   });
   // }
 
+// THIS IS WORKING! But hardcoded for now
   function trialRequest(){
-    vm.token = $window.localStorage.getItem('spotify_state');
+    vm.token = $window.localStorage.getItem('satellizer_token');
     console.log('token', vm.token)
     $http
-    .get('https://api.spotify.com/v1/users/sarahemily-m',
+    .get('https://api.spotify.com/v1/users/nahcardoso/playlists/5lX7NNvxUfImN2nr4sNfuI/tracks',
     {
       headers: {'Authorization': `Bearer ${vm.token}`}
     })
     .then(response => {
-      console.log(response);
+      console.log(response.data);
     });
   };
 
@@ -140,7 +141,7 @@ function TestCtrl($http, $auth, $window) {
   // }
   function logout() {
     // $auth.removeToken();
-    $window.localStorage.removeItem('spotify_state');
+    $window.localStorage.removeItem('satellizer_token');
     console.log('logged out')
   }
 }

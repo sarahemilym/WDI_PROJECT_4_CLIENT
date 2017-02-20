@@ -15,12 +15,13 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
     clientId: 'a66b7d062208471c95fc1f931d933478',
     url: '/auth/spotify',
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
-    redirectUri: 'http://localhost:4000/test',
+    redirectUri: window.location.origin,
     optionalUrlParams: ['state'],
     requireUrlParams: ['scope'],
     scope: ['playlist-read-private playlist-read-collaborative user-library-read'],
     scopePrefix: '',
     scopeDeliminator: ',',
+    responseType: 'token',
     oauthType: '2.0'
   });
 
