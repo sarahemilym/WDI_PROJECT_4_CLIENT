@@ -2,14 +2,14 @@ angular
 .module('MuSync')
 .config(Router);
 
-Router.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider'];
-function Router($stateProvider, $locationProvider, $urlRouterProvider){
+Router.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', '$sceDelegateProvider'];
+function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDelegateProvider){
   $locationProvider.html5Mode(true);
 
-  // $sceDelegateProvider.resourceUrlWhitelist([
-  //   'self',
-  //   'https://api.spotify.com/*',
-  //   'https://embed.spotify.com/?uri=']);
+  $sceDelegateProvider.resourceUrlWhitelist([
+    'self',
+    'https://api.spotify.com/*',
+    'https://embed.spotify.com/?uri=']);
 
   $stateProvider
   .state('home', {

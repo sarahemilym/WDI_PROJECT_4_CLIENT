@@ -11,9 +11,10 @@ function LoginCtrl(User, CurrentUserService, $state){
     .login(vm.user)
     .$promise
     .then(data => {
+      console.log('controller', vm.user)
       CurrentUserService.getUser();
       $state.go('home');
-      console.log(data);
+      console.log('data', data);
     }, err => {
       console.log(err);
     });

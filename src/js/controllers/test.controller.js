@@ -36,6 +36,8 @@ function TestCtrl($http) {
       vm.results = response.data.artists.items;
 
       vm.searchstatusArtists = true;
+      vm.searchstatusTracks = false;
+      angular.element(document.querySelector('#search-text')).val('');
       console.log('search result', vm.results);
     });
   }
@@ -48,8 +50,10 @@ function TestCtrl($http) {
       url: 'https://api.spotify.com/v1/search?q='+text+'&type=track'
     }).then(response => {
       vm.results = response.data.tracks.items;
-
+      // vm.uri = response.data.tracks.items.uri;
+      vm.searchstatusArtists = false;
       vm.searchstatusTracks = true;
+      angular.element(document.querySelector('#searchArtists-text')).val('');
       console.log('search result', vm.results);
     });
   }
