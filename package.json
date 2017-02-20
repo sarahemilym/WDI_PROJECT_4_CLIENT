@@ -50,7 +50,9 @@
     }
   },
   "dependencies": {
+    "angular-spotify": "^1.4.1",
     "express": "^4.14.0",
+    "express-jwt": "^5.1.0",
     "forever": "^0.15.3"
   },
   "devDependencies": {

@@ -1,7 +1,53 @@
 <h1>Music test</h1>
 
-{{ 1 + 1 }}
+<h2>Search Artists</h2>
 
-<h2>Name {{test.music.artists[0].name}}</h2>
+<form ng-submit="test.searchArtists()">
+    <div class="input-group input-group-search">
 
-<iframe src="{{ 'https://embed.spotify.com/?uri=' + uri }}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+        <input id="search-text" type="text" class="form-control"  ng-model="searchArtists" name="search" required>
+        <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+    </div>
+</form>
+
+<button type="button" name="clear-search" ng-click="test.clear()">Clear Search</button>
+
+<!-- <h2>Name {{test.music.artists[0].name}}</h2> -->
+
+<!-- <iframe src="{{ 'https://embed.spotify.com/?uri=' + uri }}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
+
+<h2>Search songs</h2>
+
+<form ng-submit="test.searchTracks()">
+    <div class="input-group input-group-search">
+
+        <input id="searchArtists-text" type="text" class="form-control"  ng-model="searchTracks" name="searchTracks" required>
+        <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+    </div>
+</form>
+
+<div ng-if="test.searchstatusArtists">
+  <h1>Results</h1>
+  <ul>
+    <li ng-repeat="result in test.results">
+      <h5>{{result.name}}</h5>
+      <img src="{{result.images[0].url}}" height="100px" width:"100px"/>
+      </li>
+  </ul>
+</div>
+
+<div ng-if="test.searchstatusTracks">
+  <h1>Results</h1>
+  <ul>
+    <li ng-repeat="result in test.results">
+      <h5>{{result.name}}</h5>
+      <audio controls>
+        <source src="{{result.preview_url}}">
+
+      </audio>
+      <p>Artist: {{result.artists[0].name}}</p>
+      <p>Album: {{result.album.name}}</p>
+      <!-- <iframe src="'https://embed.spotify.com/?uri=' + {{result.uri}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
+      </li>
+  </ul>
+</div>
