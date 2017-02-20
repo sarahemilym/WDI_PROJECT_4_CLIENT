@@ -3,5 +3,6 @@ angular
     'ui.router',
     'ngResource',
     'ui.bootstrap',
-    'angular-jwt'
+    'angular-jwt',
+    'satellizer'
   ]);

@@ -1,5 +1,16 @@
 <h1>Music test</h1>
 
+<!-- <h5 ng-click="test.authorize()">Authorize Spotify</h5> -->
+<button ng-click="test.authorize('spotify')">Sign in with Spotify</button>
+<button ng-click="test.createPlaylistsOn()">Create Playlist</button>
+<button ng-click="test.trialRequest()">Tester</button>
+<button ng-click="test.logout()">Log Out</button>
+
+
+<button ng-click="test.link('spotify')">
+  Connect Spotify Account
+</button>
+
 <h2>Search Artists</h2>
 
 <form ng-submit="test.searchArtists()">
@@ -14,7 +25,9 @@
 
 <!-- <h2>Name {{test.music.artists[0].name}}</h2> -->
 
-<!-- <iframe src="{{ 'https://embed.spotify.com/?uri=' + uri }}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
+<!-- <iframe src="https://embed.spotify.com/?uri=spotify:user:sarahemily-m" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
+
+<!-- spotify:user:sarahemily-m -->
 
 <h2>Search songs</h2>
 
@@ -50,4 +63,14 @@
       <!-- <iframe src="'https://embed.spotify.com/?uri={{test.uri}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
       </li>
   </ul>
+</div>
+
+<div ng-if="test.createPlaylistsOnOff">
+  <form ng-submit="test.createPlaylists()">
+    <div class="form-group">
+      <input class="form-control" type="name" name="name" ng-model="test.createPlaylists" placeholder="Email" required>
+    </div>
+    <input class="btn btn-primary btn-block" type="submit" value="Submit">
+  </form>
+
 </div>
