@@ -22,111 +22,110 @@ function TestCtrl($http, $auth, $window) {
   function authorize(spotify) {
     $auth.authenticate(spotify)
     .then(function(response) {
-      console.log('working', response)
+      console.log('working', response);
     })
     .catch(function(response) {
-      console.log('something went wrong')
+      console.log('something went wrong', response);
     });
   }
 
   // THIS IS WORKING! But hardcoded for now
   function trialRequest(){
     vm.token = $window.localStorage.getItem('satellizer_token');
-    console.log('token', vm.token)
+    console.log('token', vm.token);
     $http
     .get('https://api.spotify.com/v1/users/nahcardoso/playlists/5lX7NNvxUfImN2nr4sNfuI/tracks',
-    {
-      headers: {'Authorization': `Bearer ${vm.token}`}
-    })
+      {
+        headers: {'Authorization': `Bearer ${vm.token}`}
+      })
     .then(response => {
       console.log(response.data);
     });
-  };
+  }
 
   function seeProfile(){
-    console.log('clicked')
+    console.log('clicked');
     vm.token = $window.localStorage.getItem('satellizer_token');
     $http
     .get('https://api.spotify.com/v1/me',
-    { headers: {Authorization: `Bearer ${vm.token}`}
-  })
+      { headers: {Authorization: `Bearer ${vm.token}`}
+      })
   .then(response => {
-    console.log('user profile', response)
-  })
-}
-
-
-function searchArtists() {
-  vm.searchstatusArtists = false;
-  const text = angular.element(document.querySelector('#search-text')).val();
-  console.log(text);
-
-  $http({
-    method: 'GET',
-    url: 'https://api.spotify.com/v1/search?q='+text+'&type=artist'
-  }).then(response => {
-    vm.results = response.data.artists.items;
-
-    vm.searchstatusArtists = true;
-    vm.searchstatusTracks = false;
-    angular.element(document.querySelector('#search-text')).val('');
-    console.log('search result', vm.results);
+    console.log('user profile', response);
   });
-}
+  }
 
-function createPlaylistsOn() {
-  vm.createPlaylistsOnOff = true;
-}
 
-function searchTracks(){
-  vm.searchstatus = false;
-  const text = angular.element(document.querySelector('#searchArtists-text')).val();
-  $http({
-    method: 'GET',
-    url: 'https://api.spotify.com/v1/search?q='+text+'&type=track'
-  }).then(response => {
-    vm.results = response.data.tracks.items;
-    // vm.uri = response.data.tracks.items.uri;
+  function searchArtists() {
     vm.searchstatusArtists = false;
-    vm.searchstatusTracks = true;
-    angular.element(document.querySelector('#searchArtists-text')).val('');
-    console.log('search result', vm.results);
-  });
-}
+    const text = angular.element(document.querySelector('#search-text')).val();
+    console.log(text);
 
+    $http({
+      method: 'GET',
+      url: 'https://api.spotify.com/v1/search?q='+text+'&type=artist'
+    }).then(response => {
+      vm.results = response.data.artists.items;
 
-function clear(){
-  vm.searchstatus = false;
-}
+      vm.searchstatusArtists = true;
+      vm.searchstatusTracks = false;
+      angular.element(document.querySelector('#search-text')).val('');
+      console.log('search result', vm.results);
+    });
+  }
 
-function createPlaylists(){
-  vm.token = $window.localStorage.getItem('satellizer_token');
-  const url = 'https://api.spotify.com/v1/users/sarahemily-m/playlists'
-  const parameter = JSON.stringify({'name': 'Playlist Trial', 'public': false, 'collaborative': true});
-  $http
-  .post(url, parameter, vm.token)
-  .then(function(data) {
-    console.log(data);
-  }).
-  error(function(data) {
-    console.log(data)
-  });
-}
+  function createPlaylistsOn() {
+    vm.createPlaylistsOnOff = true;
+  }
 
-// THis is also working, get error but the information posts and comes up in spotify app
-function addSongsToPlaylist(){
-  vm.token = $window.localStorage.getItem('satellizer_token');
-  const url = 'https://api.spotify.com/v1/users/sarahemily-m/playlists/0pSPwjItUTT1VxoZIVuZhK/tracks?uris=spotify:track:6XOPuFLGzY4ZGAKvmb8jou'
-  // const parameter = JSON.stringify({'name': 'Playlist Trial', 'public': false, 'collaborative': true});
-  $http
-  .post(url, vm.token)
-  .then(function(data) {
-    console.log(data);
-  }).
-  error(function(data) {
-    console.log(data)
-  });
-}
+  function searchTracks(){
+    vm.searchstatus = false;
+    const text = angular.element(document.querySelector('#searchArtists-text')).val();
+    $http({
+      method: 'GET',
+      url: 'https://api.spotify.com/v1/search?q='+text+'&type=track'
+    }).then(response => {
+      vm.results = response.data.tracks.items;
+      // vm.uri = response.data.tracks.items.uri;
+      vm.searchstatusArtists = false;
+      vm.searchstatusTracks = true;
+      angular.element(document.querySelector('#searchArtists-text')).val('');
+      console.log('search result', vm.results);
+    });
+  }
+
+  function clear(){
+    vm.searchstatus = false;
+  }
+
+  function createPlaylists(){
+    vm.token = $window.localStorage.getItem('satellizer_token');
+    const url = 'https://api.spotify.com/v1/users/sarahemily-m/playlists';
+    const parameter = JSON.stringify({'name': 'Playlist Trial', 'public': false, 'collaborative': true});
+    $http
+      .post(url, parameter, vm.token)
+      .then(function(data) {
+        console.log(data);
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+  }
+
+  // THis is also working, get error but the information posts and comes up in spotify app
+  function addSongsToPlaylist(){
+    vm.token = $window.localStorage.getItem('satellizer_token');
+    const url = 'https://api.spotify.com/v1/users/sarahemily-m/playlists/0pSPwjItUTT1VxoZIVuZhK/tracks?uris=spotify:track:6XOPuFLGzY4ZGAKvmb8jou';
+    // const parameter = JSON.stringify({'name': 'Playlist Trial', 'public': false, 'collaborative': true});
+    $http
+      .post(url, vm.token)
+      .then(function(data) {
+        console.log(data);
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+  }
 
 
 // const data = { 'name': 'First Trial Playlist', 'public': true, 'collaborative': true };
@@ -151,9 +150,9 @@ function addSongsToPlaylist(){
 //   });
 // }
 
-function logout() {
-  // $auth.removeToken();
-  $window.localStorage.removeItem('satellizer_token');
-  console.log('logged out')
-}
+  function logout() {
+    // $auth.removeToken();
+    $window.localStorage.removeItem('satellizer_token');
+    console.log('logged out');
+  }
 }
