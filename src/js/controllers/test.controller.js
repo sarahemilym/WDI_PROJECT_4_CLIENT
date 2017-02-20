@@ -10,19 +10,12 @@ function TestCtrl($http, $auth, $window) {
   vm.trialRequest = trialRequest;
   vm.searchArtists = searchArtists;
   vm.searchTracks = searchTracks;
+  vm.seeProfile = seeProfile;
   vm.createPlaylistsOn = createPlaylistsOn;
   // vm.createPlaylists = createPlaylists;
   vm.logout = logout;
   vm.clear = clear;
   vm.searchstatusArtists = false;
-
-  // function authorize(provider){
-  //   $auth.authenticate(provider)
-  //
-  // }
-
-  //
-  // console.log('token', token)
 
 
   function authorize(spotify) {
@@ -34,15 +27,6 @@ function TestCtrl($http, $auth, $window) {
     console.log('something went wrong')
   });
 }
-  //   $auth
-  //   .authenticate(provider)
-  //   .then(response => {
-  //     console.log('spotify log in', response)
-  //   })
-  //   .catch(function(response) {
-  //     console.log(response)
-  //   });
-  // }
 
 // THIS IS WORKING! But hardcoded for now
   function trialRequest(){
@@ -58,10 +42,17 @@ function TestCtrl($http, $auth, $window) {
     });
   };
 
-
-  // console.log('Token', token)
-
-  // console.log('TOKEN', $auth.getToken());
+function seeProfile(){
+  console.log('clicked')
+  vm.token = $window.localStorage.getItem('satellizer_token');
+  $http
+    .get('https://api.spotify.com/v1/me',
+    { headers: {Authorization: `Bearer ${vm.token}`}
+})
+.then(response => {
+  console.log('user profile', response)
+})
+}
 
   // function authorize() {
   //   $http({
