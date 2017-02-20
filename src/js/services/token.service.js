@@ -5,7 +5,7 @@ angular
 TokenService.$inject = ['$window', 'jwtHelper'];
 function TokenService($window, jwtHelper) {
   const self = this;
-console.log('self token', self)
+
   self.setToken = (token) => {
     return $window.localStorage.setItem('Auth-token', token);
   };

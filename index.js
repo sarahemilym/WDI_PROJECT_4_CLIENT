@@ -1,5 +1,4 @@
 const express = require('express');
-const expressJWT = require('express-jwt');
 const port    = process.env.PORT || 4000;
 const app     = express();
 const dest    = `${__dirname}/public`;
