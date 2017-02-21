@@ -48,6 +48,18 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
     templateUrl: '/js/views/test.html',
     controller: 'TestCtrl',
     controllerAs: 'test'
+  })
+  // .state('roomsIndex', {
+  //   url: '/rooms',
+  //   templateUrl: '/js/views/rooms/index.html',
+  //   controller: 'RoomsIndexCtrl',
+  //   controllerAs: 'roomsIndex'
+  // })
+  .state('roomsCreate', {
+    url: '/rooms/new',
+    templateUrl: '/js/views/rooms/new.html',
+    controller: 'RoomsCreateCtrl',
+    controllerAs: 'roomsCreate'
   });
   $urlRouterProvider.otherwise('/');
 }

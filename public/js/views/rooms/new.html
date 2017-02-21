@@ -1,0 +1,10 @@
+<h1>New Room</h1>
+<form ng-submit="roomsCreate.create()">
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" ng-model="roomsCreate.room.name">
+  </div>
+
+  <input type="submit" class="btn btn-primary btn-block" value="Add">
+</form>
