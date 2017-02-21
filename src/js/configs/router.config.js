@@ -60,6 +60,12 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
     templateUrl: '/js/views/rooms/new.html',
     controller: 'RoomsCreateCtrl',
     controllerAs: 'roomsCreate'
+  })
+  .state('roomsShow', {
+    url: '/rooms/:id',
+    templateUrl: '/js/views/rooms/show.html',
+    controller: 'RoomsShowCtrl',
+    controllerAs: 'roomsShow'
   });
   $urlRouterProvider.otherwise('/');
 }
