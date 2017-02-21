@@ -1,7 +1,8 @@
 <h1>Rooms</h1>
 <ul>
     <li ng-repeat="room in roomsIndex.rooms track by $index">
-      <p>{{room.name}}</p>
+      <p ui-sref="roomsShow({ id: room.id })">{{room.name}}</p>
+      <p>{{room.user.email}}</p>
       <!-- <img ui-sref="eventsShow({ id: event._id })" src="{{ event.img }}"> -->
       <!-- <div class="info">
         <img ui-sref="usersShow({ id: event.host._id })" class="user-img" src="{{ event.host.profilePicture }}">

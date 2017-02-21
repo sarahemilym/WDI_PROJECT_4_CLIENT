@@ -10,11 +10,14 @@ function RoomsShowCtrl(API, $stateParams, User, Room, CurrentUserService, $state
   vm.delete = roomsDelete;
   console.log('roomsShow', vm.room);
 
-  CurrentUserService.getUser();
+
 
   Room.get($stateParams, (data) => {
+    CurrentUserService.getUser();
     vm.room = data;
     console.log('room data', vm.room);
+    vm.email = CurrentUserService.currentUser.email;
+    console.log('current users email', vm.email)
   });
 
   function roomsDelete(room) {
