@@ -16,7 +16,9 @@ function RoomsShowCtrl(API, $stateParams, User, Room, CurrentUserService, $state
   vm.searchArtists = searchArtists;
   vm.searchTracks = searchTracks;
   vm.addToPlaylist = addToPlaylist;
+  vm.playlistShow = playlistShow;
   vm.playlistCreated = false;
+  vm.showPlaylist = false;
   vm.authorized = false;
   vm.searchstatusArtists = false;
   vm.searchstatusTracks = false;
@@ -120,14 +122,20 @@ function RoomsShowCtrl(API, $stateParams, User, Room, CurrentUserService, $state
         })
         .then(response => {
           console.log('playlist', response.data);
-          // vm.fullPlaylist = response.data;
+          vm.fullPlaylist = response.data.tracks.items;
+          vm.player = `https://embed.spotify.com/?uri=${response.data.uri}`;
         })
       //   .fail(function(data) {
       //     console.log('error');
       //   });
       // })
     })
+}
 
-    }
+function playlistShow(){
+  vm.showPlaylist = true;
+
+
+}
 
 }

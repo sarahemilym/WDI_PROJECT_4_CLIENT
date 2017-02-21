@@ -5,14 +5,28 @@
 <button class="btn btn-primary" ng-click="roomsShow.delete(roomsShow.room)">Delete</button>
 
 <button ng-click="roomsShow.authorize('spotify')" ng-hide="roomsShow.authorized">Plese allow access to your Spotify account</button>
+<button ng-click="roomsShow.playlistShow()">View Playlist</button>
 
 
-<form ng-submit="roomsShow.createPlaylist()" ng-hide="roomsShow.playlistCreated">
+<form ng-submit="roomsShow.createPlaylist()">
   <div class="form-group">
     <input class="form-control" id="playlistName" type="text" name="name" ng-model="roomsShow.playlist.name" placeholder="Name" required>
   </div>
   <input class="btn btn-primary btn-block" type="submit" value="Submit">
 </form>
+
+<div class="playlist" ng-if="roomsShow.showPlaylist">
+  <h1>{{roomsShow.fullPlaylist.name}}</h1>
+
+  <ul>
+    <li ng-repeat="item in roomsShow.fullPlaylist">
+    <p>{{item.track.name}}</p>
+    <p>{{item.artists[0].name}}</p>
+  </li>
+  </ul>
+
+  <iframe ng-src="{{roomsShow.player}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+</div>
 
 <div class="selectForPlaylist" ng-if="roomsShow.playlistCreated">
   <h1>{{roomsShow.playlist.name}}</h1>
@@ -69,6 +83,5 @@
           </li>
       </ul>
     </div>
-
   </div>
 </div>
