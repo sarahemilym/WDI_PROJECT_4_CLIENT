@@ -4,4 +4,17 @@
 <button class="btn btn-primary" ui-sref="roomsEdit({ id: roomsShow.room.id })">Edit</button>
 <button class="btn btn-primary" ng-click="roomsShow.delete(roomsShow.room)">Delete</button>
 
-<button ng-click="roomsShow.createPlaylist()" ng-disabled="roomsShow.playlistCreated" id="createPlaylist">Create Playlist</button>
+<button ng-click="roomsShow.authorize('spotify')" ng-hide="roomsShow.authorized">Plese allow access to your Spotify account</button>
+
+
+<form ng-submit="roomsShow.createPlaylist()" ng-hide="roomsShow.playlistCreated">
+  <div class="form-group">
+    <input class="form-control" id="playlistName" type="text" name="name" ng-model="roomsShow.playlist.name" placeholder="Name" required>
+  </div>
+  <input class="btn btn-primary btn-block" type="submit" value="Submit">
+</form>
+
+<div class="selectForPlaylist" ng-if="roomsShow.playlistCreated">
+  <h1>{{roomsShow.playlist.name}}</h1>
+
+</div>
