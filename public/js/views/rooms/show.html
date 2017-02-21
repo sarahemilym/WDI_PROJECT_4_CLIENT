@@ -17,4 +17,58 @@
 <div class="selectForPlaylist" ng-if="roomsShow.playlistCreated">
   <h1>{{roomsShow.playlist.name}}</h1>
 
+  <div class="tile col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+    <h2>Search Artists</h2>
+
+    <form ng-submit="roomsShow.searchArtists()">
+      <div class="input-group input-group-search">
+
+        <input id="searchArtist-text" type="text" class="form-control"  ng-model="searchArtists" name="search" required>
+        <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+      </div>
+    </form>
+  </div>
+
+  <div class="tile col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+    <h2>Search songs</h2>
+
+    <form ng-submit="roomsShow.searchTracks()">
+      <div class="input-group input-group-search">
+
+        <input id="searchTracks-text" type="text" class="form-control"  ng-model="searchTracks" name="searchTracks" required>
+        <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+      </div>
+    </form>
+  </div>
+
+  <div class="results">
+    <h1>Results</h1>
+    <div ng-if="roomsShow.searchstatusArtists">
+      <h1>Results</h1>
+      <ul>
+        <li ng-repeat="result in roomsShow.results">
+          <h5>{{result.name}}</h5>
+          <img src="{{result.images[0].url}}" height="100px" width:"100px"/>
+          </li>
+      </ul>
+    </div>
+
+    <div ng-if="roomsShow.searchstatusTracks">
+      <ul>
+        <li ng-repeat="result in roomsShow.results">
+          <h5>{{result.name}}</h5>
+          <audio controls>
+            <source src="{{result.preview_url}}">
+
+          </audio>
+          <p>Artist: {{result.artists[0].name}}</p>
+          <p>Album: {{result.album.name}}</p>
+          <p>{{result.uri}}</p>
+          <button ng-click="roomsShow.addToPlaylist(result.uri)">Add to Playlist</button>
+          <!-- <iframe src="'https://embed.spotify.com/?uri={{test.uri}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
+          </li>
+      </ul>
+    </div>
+
+  </div>
 </div>
