@@ -49,12 +49,12 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
     controller: 'TestCtrl',
     controllerAs: 'test'
   })
-  // .state('roomsIndex', {
-  //   url: '/rooms',
-  //   templateUrl: '/js/views/rooms/index.html',
-  //   controller: 'RoomsIndexCtrl',
-  //   controllerAs: 'roomsIndex'
-  // })
+  .state('roomsIndex', {
+    url: '/rooms',
+    templateUrl: '/js/views/rooms/index.html',
+    controller: 'RoomsIndexCtrl',
+    controllerAs: 'roomsIndex'
+  })
   .state('roomsCreate', {
     url: '/rooms/new',
     templateUrl: '/js/views/rooms/new.html',
