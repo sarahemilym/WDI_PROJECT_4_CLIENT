@@ -2,8 +2,8 @@ angular
 .module('MuSync')
 .controller('RoomsCreateCtrl', RoomsCreateCtrl);
 
-RoomsCreateCtrl.$inject = ['API', 'Room', '$stateParams', 'CurrentUserService'];
-function RoomsCreateCtrl(API, Room, $stateParams, CurrentUserService){
+RoomsCreateCtrl.$inject = ['API', 'Room', '$stateParams', 'CurrentUserService', '$state'];
+function RoomsCreateCtrl(API, Room, $stateParams, CurrentUserService, $state){
   const vm = this;
 
   vm.room = {};
@@ -17,6 +17,7 @@ function RoomsCreateCtrl(API, Room, $stateParams, CurrentUserService){
     .save({ room: vm.room })
     .$promise
     .then((response) => {
+      $state.go('roomsShow', {id: response.id})
       console.log('roomsCreate', response);
     });
   }

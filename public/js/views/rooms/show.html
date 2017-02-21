@@ -1,5 +1,5 @@
 <h1>{{roomsShow.room.name}}</h1>
-<p>{{roomsShow.email}}</p>
+<p ui-sref="usersShow({id: roomsShow.userId})">{{roomsShow.email}}</p>
 
 <button class="btn btn-primary" ui-sref="roomsEdit({ id: roomsShow.room.id })">Edit</button>
 <button class="btn btn-primary" ng-click="roomsShow.delete(roomsShow.room)">Delete</button>
@@ -37,7 +37,7 @@
     <form ng-submit="roomsShow.searchArtists()">
       <div class="input-group input-group-search">
 
-        <input id="searchArtist-text" type="text" class="form-control"  ng-model="searchArtists" name="search" required>
+        <input type="text" class="form-control"  ng-model="roomsShow.searchArtistsText" name="search" required>
         <input class="btn btn-primary btn-block" type="submit" value="Submit" />
       </div>
     </form>
@@ -49,7 +49,7 @@
     <form ng-submit="roomsShow.searchTracks()">
       <div class="input-group input-group-search">
 
-        <input id="searchTracks-text" type="text" class="form-control"  ng-model="searchTracks" name="searchTracks" required>
+        <input type="text" class="form-control"  ng-model="roomsShow.searchTracksText" name="searchTracks" required>
         <input class="btn btn-primary btn-block" type="submit" value="Submit" />
       </div>
     </form>
@@ -61,7 +61,7 @@
       <h1>Results</h1>
       <ul>
         <li ng-repeat="result in roomsShow.results">
-          <h5>{{result.name}}</h5>
+          <h5 ng-click="roomsShow.findArtistsSongs(result.id)">{{result.name}}</h5>
           <img src="{{result.images[0].url}}" height="100px" width:"100px"/>
           </li>
       </ul>
@@ -81,6 +81,25 @@
           <button ng-click="roomsShow.addToPlaylist(result.uri)">Add to Playlist</button>
           <!-- <iframe src="'https://embed.spotify.com/?uri={{test.uri}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
           </li>
+      </ul>
+    </div>
+
+    <div ng-if="roomsShow.searchArtistAlbums">
+      <ul>
+        <li ng-repeat="item in roomsShow.artistAlbums">
+        <p>{{item.name}}</p>
+        <img src="{{item.images[0].url}}" height="100px" width="100px">
+        <div ng-init="tracks = roomsShow.fetchTracks(item.id)">
+
+        <ul>
+          <li ng-repeat="track in roomsShow.albumTracks">
+          <p>{{track.name}}</p>
+          <p>{{track.uri}}</p>
+          <button ng-click="roomsShow.addToPlaylist(track.uri)">Add to Playlist</button>
+        </li>
+        </ul>
+        </div>
+      </li>
       </ul>
     </div>
   </div>
