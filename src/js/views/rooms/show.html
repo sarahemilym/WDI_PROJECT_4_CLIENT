@@ -3,3 +3,5 @@
 
 <button class="btn btn-primary" ui-sref="roomsEdit({ id: roomsShow.room.id })">Edit</button>
 <button class="btn btn-primary" ng-click="roomsShow.delete(roomsShow.room)">Delete</button>
+
+<button ng-click="roomsShow.createPlaylist()" ng-disabled="roomsShow.playlistCreated" id="createPlaylist">Create Playlist</button>

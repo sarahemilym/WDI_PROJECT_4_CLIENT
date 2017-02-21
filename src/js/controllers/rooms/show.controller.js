@@ -8,16 +8,15 @@ function RoomsShowCtrl(API, $stateParams, User, Room, CurrentUserService, $state
 
   vm.room = Room.get($stateParams);
   vm.delete = roomsDelete;
-  console.log('roomsShow', vm.room);
-
-
+  vm.createPlaylist = createPlaylist;
+  vm.playlistCreated = false;
 
   Room.get($stateParams, (data) => {
     CurrentUserService.getUser();
     vm.room = data;
     console.log('room data', vm.room);
     vm.email = CurrentUserService.currentUser.email;
-    console.log('current users email', vm.email)
+    console.log('current users email', vm.email);
   });
 
   function roomsDelete(room) {
@@ -27,6 +26,14 @@ function RoomsShowCtrl(API, $stateParams, User, Room, CurrentUserService, $state
       .then(() => {
         $state.go('roomsIndex');
       });
+  }
+
+  function createPlaylist(){
+    vm.playlistCreated = true;
+
+    console.log('clicked')
+    // e.target.setAttribute('disabled', true);
+    // angular.element(document.querySelector('#createPlaylist')).isDisabled = true;
   }
 
 }
