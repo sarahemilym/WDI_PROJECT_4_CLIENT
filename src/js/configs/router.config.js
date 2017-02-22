@@ -9,7 +9,8 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
   $sceDelegateProvider.resourceUrlWhitelist([
     'self',
     'https://api.spotify.com/*',
-    'https://embed.spotify.com/?uri=']);
+    'https://embed.spotify.com/?uri='
+  ]);
 
   $authProvider.spotify({
     clientId: 'a66b7d062208471c95fc1f931d933478',
@@ -84,6 +85,12 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
     templateUrl: '/js/views/users/show.html',
     controller: 'UsersShowCtrl',
     controllerAs: 'usersShow'
+  })
+  .state('usersInvites', {
+    url: '/invites',
+    templateUrl: '/js/views/users/invites.html',
+    controller: 'UsersInvitesCtrl',
+    controllerAs: 'usersInvites'
   });
 
   $urlRouterProvider.otherwise('/');

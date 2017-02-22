@@ -10,15 +10,7 @@
 <!-- <button ng-click="roomsShow.authorize('spotify')" ng-hide="roomsShow.authorized">Plese allow access to your Spotify account</button> -->
 <button ng-click="roomsShow.playlistShow()">View Playlist</button>
 
-
-<!-- <form ng-submit="roomsShow.createPlaylist()">
-  <div class="form-group">
-    <input class="form-control" id="playlistName" type="text" name="name" ng-model="roomsShow.playlist.name" placeholder="Name" required>
-  </div>
-  <input class="btn btn-primary btn-block" type="submit" value="Submit">
-</form> -->
-
-<div class="playlist" ng-if="roomsShow.showPlaylist">
+<div class="playlist">
   <h1>{{roomsShow.fullPlaylist.name}}</h1>
 
   <ul>
@@ -28,7 +20,7 @@
   </li>
   </ul>
 
-  <iframe ng-src="{{roomsShow.player}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+  <iframe ng-src="{{roomsShow.uri | spotifyEmbedUrl}}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>
 </div>
 
 <div class="selectForPlaylist">
@@ -82,7 +74,7 @@
           <p>Album: {{result.album.name}}</p>
           <p>{{result.uri}}</p>
           <button ng-click="roomsShow.addToPlaylist(result.uri)">Add to Playlist</button>
-          <!-- <iframe src="'https://embed.spotify.com/?uri={{test.uri}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
+          <iframe src="{{roomsShow.player}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
           </li>
       </ul>
     </div>
@@ -97,8 +89,8 @@
         <ul>
           <li ng-repeat="track in roomsShow.albumTracks">
           <p>{{track.name}}</p>
-          <p>{{track.uri}}</p>
-          <button ng-click="roomsShow.addToPlaylist(track.uri)">Add to Playlist</button>
+          <p>{{track.songUri}}</p>
+          <button ng-click="roomsShow.addToPlaylist(track.songUri)">Add to Playlist</button>
         </li>
         </ul>
         </div>

@@ -10,10 +10,26 @@ function RoomsCreateCtrl(API, Room, $stateParams, CurrentUserService, $state, $a
   vm.authorize = authorize;
   vm.createPlaylist = createPlaylist;
 
+  function createPlaylist(){
+    vm.playlistCreated = true;
+    const url = `https://api.spotify.com/v1/users/${vm.user_id}/playlists`;
+    const parameter = JSON.stringify({'name': vm.playlist.name, 'public': false, 'collaborative': true});
+
+    $http
+      .post(url, parameter, vm.token)
+      .then(function(data) {
+        vm.playlistId = data.data.id;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   function roomsCreate(){
     CurrentUserService.getUser();
     vm.room.user_id = CurrentUserService.currentUser.id;
     vm.room.playlist_id = vm.playlistId;
+    console.log('playlist id', vm.room.playlist_id)
     vm.room.owner_id = vm.user_id;
 
     return Room
@@ -42,21 +58,4 @@ function RoomsCreateCtrl(API, Room, $stateParams, CurrentUserService, $state, $a
       console.log('something went wrong', response);
     });
   }
-
-
-  function createPlaylist(){
-    vm.playlistCreated = true;
-    const url = `https://api.spotify.com/v1/users/${vm.user_id}/playlists`;
-    const parameter = JSON.stringify({'name': vm.playlist.name, 'public': false, 'collaborative': true});
-
-    $http
-      .post(url, parameter, vm.token)
-      .then(function(data) {
-        vm.playlistId = data.data.id;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
 }
