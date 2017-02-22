@@ -6,9 +6,32 @@
 
 <button class="btn btn-primary" ng-if="roomsShow.currentUserPlaylist" ui-sref="roomsEdit({ id: roomsShow.room.id })">Edit</button>
 <button class="btn btn-primary" ng-click="roomsShow.delete(roomsShow.room)" ng-if="roomsShow.currentUserPlaylist">Delete</button>
+<button class="btn btn-primary" ng-click="roomsShow.inviteFriends(roomsShow.room.id)" ng-if="roomsShow.currentUserPlaylist">Invite Friends</button>
 
 <!-- <button ng-click="roomsShow.authorize('spotify')" ng-hide="roomsShow.authorized">Plese allow access to your Spotify account</button> -->
 <button ng-click="roomsShow.playlistShow()">View Playlist</button>
+
+
+<div ng-if="roomsShow.inviteFriends">
+  <div class="userSearch">
+    <form ng-submit="roomsShow.search()">
+      <div class="input-group input-group-search">
+    <p>Search</p>
+      <input type="text" class="form-control"  ng-model="roomsShow.searchText" name="searchUserId" required>
+      <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+    </div>
+  </form>
+
+  </div>
+
+
+  <h1>Results</h1>
+  <ul>
+    <li ng-repeat="result in roomsShow.resultArray">
+      <h4 ui-sref="usersShow({id: result.id})">{{result.first_name}} {{result.last_name}} - {{result.email}}</h4>
+    </li>
+  </ul>
+</div>
 
 <div class="playlist">
   <h1>{{roomsShow.fullPlaylist.name}}</h1>

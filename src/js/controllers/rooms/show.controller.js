@@ -15,6 +15,7 @@ function RoomsShowCtrl(API, $stateParams, User, Room, CurrentUserService, $state
   vm.playlistShow        = playlistShow;
   vm.findArtistsSongs    = findArtistsSongs;
   vm.fetchTracks         = fetchTracks;
+  vm.inviteFriends       = inviteFriends;
   vm.searchArtistAlbums  = false;
   vm.showPlaylist        = false;
   vm.searchstatusArtists = false;
@@ -128,6 +129,45 @@ function fetchTracks(id){
       .$promise
       .then(() => {
         $state.go('roomsIndex');
+      });
+  }
+
+  function inviteFriends(id){
+    vm.inviteFriends = true;
+    vm.search = search;
+
+    User
+    .query().$promise
+    .then(response => {
+      vm.users = response;
+      console.log(vm.users);
+    });
+    console.log('inviting friends')
+  }
+
+  function search(){
+    $http
+      .get('http://localhost:3000/users')
+      .then(response => {
+        const searchItem = response.data;
+        vm.resultArray = [];
+        // const text = vm.searchText;
+
+        searchItem.forEach(function(user){
+          if (vm.searchText == user.id){
+            console.log(user)
+            vm.resultArray.push(user);
+          } else if (vm.searchText === user.email){
+            vm.resultArray.push(user);
+          } else if (vm.searchText === user.first_name){
+            vm.resultArray.push(user);
+          } else if (vm.searchText === user.last_name){
+            vm.resultArray.push(user);
+          } else if (vm.searchText === user.spotify_id){
+            vm.resultArray.push(user);
+          }
+        });
+
       });
   }
 }

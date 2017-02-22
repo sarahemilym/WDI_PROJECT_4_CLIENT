@@ -12,7 +12,7 @@
   </ul> -->
 
   <ul>
-      <li ng-repeat="room in roomsIndex.authorizedRooms track by $index">
-        <p ui-sref="roomsShow({ id: room.id })">{{room}}</p>
+      <li ng-repeat="room in roomsIndex.authorizedRoomIds track by $index">
+        <p ui-sref="roomsShow({ id: room })">{{room}}</p>
       </li>
     </ul>

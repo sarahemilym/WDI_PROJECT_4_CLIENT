@@ -7,10 +7,11 @@ function RoomsIndexCtrl(Room, CurrentUserService) {
   const vm  = this;
   const roomArray = [];
   const authorizedRooms = CurrentUserService.currentUser.authorized_rooms;
-  vm.authorizedRooms = [];
+  vm.authorizedRoomIds = [];
 
   Room
-  .query().$promise
+  .query()
+  .$promise
   .then(response => {
     createRoomArray(response);
 
@@ -33,13 +34,29 @@ function RoomsIndexCtrl(Room, CurrentUserService) {
     for (var i = 0; i < a.length; i++) {
       for (var j = 0; j < b.length; j++) {
         if(a[i] == b[j]){
-          if (vm.authorizedRooms.indexOf(a[i]) === -1) {
-            vm.authorizedRooms.push(a[i]);
+          if (vm.authorizedRoomIds.indexOf(a[i]) === -1) {
+            vm.authorizedRoomIds.push(a[i]);
           }
         }
       }
-      console.log('authorized rooms', vm.authorizedRooms);
-      // return vm.showRooms;
+      console.log('authorized rooms', vm.authorizedRoomIds);
     }
   }
+  // authorizedMusicRooms();
+
+  // function authorizedMusicRooms(){
+  //   Room
+  //   .query()
+  //   .$promise
+  //   .then(response => {
+  //     console.log(response)
+  //     const musicRooms = response;
+  //     musicRooms.forEach(function(room){
+  //       console.log('music room', room.id)
+  //       if (room.id == roomArray){
+  //         console.log('room response', room)
+  //       }
+  //     });
+  //   });
+  // }
 }
