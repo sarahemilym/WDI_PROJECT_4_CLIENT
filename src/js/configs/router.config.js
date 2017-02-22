@@ -73,6 +73,12 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
     controller: 'RoomsEditCtrl',
     controllerAs: 'roomsEdit'
   })
+  .state('usersIndex', {
+    url: '/users',
+    templateUrl: '/js/views/users/index.html',
+    controller: 'UsersIndexCtrl',
+    controllerAs: 'usersIndex'
+  })
   .state('usersShow', {
     url: '/users/:id',
     templateUrl: '/js/views/users/show.html',
