@@ -1,10 +1,17 @@
-<h1>New Room</h1>
-<form ng-submit="roomsCreate.create()">
+<h2>Create Playlist</h2>
+<button ng-click="roomsCreate.authorize('spotify')" ng-hide="roomsCreate.authorized">Plese allow access to your Spotify account</button>
+<form ng-submit="roomsCreate.createPlaylist()">
+  <div class="form-group">
+    <input class="form-control" id="playlistName" type="text" name="name" ng-model="roomsCreate.playlist.name" placeholder="Name" required>
+  </div>
+  <input class="btn btn-primary btn-block" type="submit" value="Submit">
+</form>
 
+<h2>New Room</h2>
+<form ng-submit="roomsCreate.create()">
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="name" name="name" ng-model="roomsCreate.room.name">
   </div>
-
   <input type="submit" class="btn btn-primary btn-block" value="Add">
 </form>

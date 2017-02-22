@@ -31,6 +31,7 @@
           <li><a ng-hide="main.user" ui-sref="login">Log In</a></li>
           <li><a ng-show="main.user" ui-sref="test">Test</a></li>
           <li><a ng-show="main.user" ui-sref="roomsIndex">Rooms</a></li>
+          <li><a ng-show="main.user" ui-sref="roomsCreate">Create new room</a></li>
           <li><a ng-show="main.user" ui-sref="usersShow({id: main.user.id})">{{ main.user.email }}</a></li>
           <li><a ng-show="main.user" ng-click="main.logout()" href="#">Log Out</a></li>
         </ul>

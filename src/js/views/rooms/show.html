@@ -1,34 +1,37 @@
 <h1>{{roomsShow.room.name}}</h1>
-<p ui-sref="usersShow({id: roomsShow.userId})">{{roomsShow.email}}</p>
 
-<button class="btn btn-primary" ui-sref="roomsEdit({ id: roomsShow.room.id })">Edit</button>
-<button class="btn btn-primary" ng-click="roomsShow.delete(roomsShow.room)">Delete</button>
+<p ng-if="roomsShow.currentUserPlaylist" ui-sref="usersShow({id: roomsShow.room.user.id})">This is your playlist... See profile</p>
+<p ng-hide="roomsShow.currentUserPlaylist" ui-sref="usersShow({id: roomsShow.room.user.id})">{{roomsShow.room.user.email}}</p>
+<p>Spotify Profile: {{roomsShow.room.owner_id}}</p>
 
-<button ng-click="roomsShow.authorize('spotify')" ng-hide="roomsShow.authorized">Plese allow access to your Spotify account</button>
+<button class="btn btn-primary" ng-if="roomsShow.currentUserPlaylist" ui-sref="roomsEdit({ id: roomsShow.room.id })">Edit</button>
+<button class="btn btn-primary" ng-click="roomsShow.delete(roomsShow.room)" ng-if="roomsShow.currentUserPlaylist">Delete</button>
+
+<!-- <button ng-click="roomsShow.authorize('spotify')" ng-hide="roomsShow.authorized">Plese allow access to your Spotify account</button> -->
 <button ng-click="roomsShow.playlistShow()">View Playlist</button>
 
 
-<form ng-submit="roomsShow.createPlaylist()">
+<!-- <form ng-submit="roomsShow.createPlaylist()">
   <div class="form-group">
     <input class="form-control" id="playlistName" type="text" name="name" ng-model="roomsShow.playlist.name" placeholder="Name" required>
   </div>
   <input class="btn btn-primary btn-block" type="submit" value="Submit">
-</form>
+</form> -->
 
 <div class="playlist" ng-if="roomsShow.showPlaylist">
   <h1>{{roomsShow.fullPlaylist.name}}</h1>
 
   <ul>
     <li ng-repeat="item in roomsShow.fullPlaylist">
-    <p>{{item.track.name}}</p>
-    <p>{{item.artists[0].name}}</p>
+    <h5>{{item.track.name}}</h5>
+    <p>{{item.track.artists[0].name}}</p>
   </li>
   </ul>
 
   <iframe ng-src="{{roomsShow.player}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
 </div>
 
-<div class="selectForPlaylist" ng-if="roomsShow.playlistCreated">
+<div class="selectForPlaylist">
   <h1>{{roomsShow.playlist.name}}</h1>
 
   <div class="tile col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">

@@ -8,6 +8,9 @@ function RoomsShowCtrl(API, $stateParams, User, Room, CurrentUserService, $state
 
   vm.room = Room.get($stateParams);
   vm.delete = roomsDelete;
+  vm.token = $window.localStorage.getItem('satellizer_token');
+  CurrentUserService.getUser();
+
 
   vm.playlist = {};
 
@@ -27,15 +30,28 @@ function RoomsShowCtrl(API, $stateParams, User, Room, CurrentUserService, $state
   vm.searchstatusTracks = false;
 
   Room.get($stateParams, (data) => {
-    CurrentUserService.getUser();
     vm.room = data;
-    vm.email = data.user.email;
-    vm.userId = data.user.id;
+    console.log('room', vm.room);
+    checkUser();
 
-    console.log('room data', vm.room);
-    // vm.email = CurrentUserService.currentUser.email;
-    console.log('current users email', vm.email);
+    $http
+    .get(`https://api.spotify.com/v1/users/${vm.room.owner_id}/playlists/${vm.room.playlist_id}`,  { headers: {Authorization: `Bearer ${vm.token}`}
+    })
+    .then(response => {
+      vm.fullPlaylist = response.data.tracks.items;
+      console.log('playlist', vm.fullPlaylist);
+      // vm.player = `https://embed.spotify.com/?uri=${response.data.uri}`;
+    });
   });
+
+  function checkUser(){
+    if (CurrentUserService.currentUser.id === vm.room.user.id){
+      vm.currentUserPlaylist = true;
+    } else {
+      vm.currentUserPlaylist = false;
+    }
+  }
+
 
   function roomsDelete(room) {
     Room
@@ -48,26 +64,25 @@ function RoomsShowCtrl(API, $stateParams, User, Room, CurrentUserService, $state
 
   function authorize(provider) {
     $auth.authenticate(provider)
-    .then(response => {
+    .then(() => {
       vm.authorized = true;
       vm.token = $window.localStorage.getItem('satellizer_token');
       $http
       .get('https://api.spotify.com/v1/me',
-      { headers: {Authorization: `Bearer ${vm.token}`}
+        { headers: {Authorization: `Bearer ${vm.token}`}
+        })
+        .then(response => {
+          vm.user_id = response.data.id;
+        });
     })
-    .then(response => {
-      vm.user_id = response.data.id
+    .catch(function(response) {
+      console.log('something went wrong', response);
     });
-  })
-  .catch(function(response) {
-    console.log('something went wrong', response);
-  });
-}
+  }
 
 
 function createPlaylist(){
   vm.playlistCreated = true;
-  console.log('user', vm.user_id);
   const url = 'https://api.spotify.com/v1/users/sarahemily-m/playlists';
   const parameter = JSON.stringify({'name': vm.playlist.name, 'public': false, 'collaborative': true});
   // vm.playlist.public = false;
@@ -78,12 +93,12 @@ function createPlaylist(){
     vm.playlist = data.data;
     vm.playlistid = data.data.id;
     vm.room.playlist = data.data.id;
-    console.log('room', vm.room);
+  })
+  .catch(err => {
+    console.log(err);
   });
-  // .err(err => {
-  //   console.log(err);
-  // });
 }
+
 
 function searchArtists() {
   vm.searchstatusArtists = false;
@@ -92,7 +107,6 @@ function searchArtists() {
   $http
   .get('https://api.spotify.com/v1/search?q='+text+'&type=artist')
   .then(response => {
-console.log('artist response', response.data.artists.items)
     vm.results = response.data.artists.items;
 
     vm.searchstatusArtists = true;
@@ -105,13 +119,12 @@ console.log('artist response', response.data.artists.items)
 function searchTracks(){
   vm.searchstatus = false;
   const text = vm.searchTracksText;
-  console.log(text)
-  $http({
-    method: 'GET',
-    url: 'https://api.spotify.com/v1/search?q='+text+'&type=track'
-  }).then(response => {
+  $http
+  .get(`https://api.spotify.com/v1/search?q=${text}&type=track`)
+  .then(response => {
     vm.results = response.data.tracks.items;
     // vm.uri = response.data.tracks.items.uri;
+
     vm.searchstatusArtists = false;
     vm.searchstatusTracks = true;
     vm.searchArtistAlbums = false;
@@ -120,26 +133,27 @@ function searchTracks(){
 }
 
 function addToPlaylist(uri){
-  vm.uri = uri
-  const url = `https://api.spotify.com/v1/users/${vm.user_id}/playlists/${vm.playlistid}/tracks?uris=${vm.uri}`
+  vm.uri = uri;
+  const url = `https://api.spotify.com/v1/users/${vm.room.owner_id}/playlists/${vm.room.playlist_id}/tracks?uris=${vm.uri}`;
   $http
   .post(url, vm.token)
   .then(function(data) {
-    console.log('song data', data);
-    $http
-    .get(`https://api.spotify.com/v1/users/${vm.user_id}/playlists/${vm.playlistid}`,  { headers: {Authorization: `Bearer ${vm.token}`}
-    })
-    .then(response => {
-      console.log('playlist', response.data);
-      vm.fullPlaylist = response.data.tracks.items;
-      vm.player = `https://embed.spotify.com/?uri=${response.data.uri}`;
-    })
-    //   .fail(function(data) {
-    //     console.log('error');
-    //   });
-    // })
-  })
+    console.log('playlist tracks', data);
+    // vm.fullPlaylist.push(data);
+    // vm.playlist.push(data);
+  //   $http
+  //   .get(`https://api.spotify.com/v1/users/${vm.user_id}/playlists/${vm.playlistid}`,  { headers: {Authorization: `Bearer ${vm.token}`}
+  //   })
+  //   .then(response => {
+  //     vm.fullPlaylist = response.data.tracks.items;
+  //     vm.player = `https://embed.spotify.com/?uri=${response.data.uri}`;
+  //   })
+  //   .catch(function() {
+  //     console.log('error');
+  //   });
+  });
 }
+
 
 function playlistShow(){
   vm.showPlaylist = true;
@@ -150,15 +164,13 @@ function findArtistsSongs(artist){
   vm.searchstatusTracks = false;
   vm.searchArtistAlbums = true;
   const clickedArtist = artist;
-  console.log('clicked', clickedArtist);
+
   $http
   .get(`https://api.spotify.com/v1/artists/${clickedArtist}/albums`)
   .then(response => {
-    console.log('albums', response);
-    vm.artistAlbums = response.data.items
-    console.log('artist albums', vm.artistAlbums)
 
-     const albumId = response.data.items[0].id
+    vm.artistAlbums = response.data.items
+    const albumId = response.data.items[0].id
     // $http
     //   .get(`https://api.spotify.com/v1/albums/${albumId}/tracks`)
     //   .then(response => {
@@ -170,11 +182,9 @@ function findArtistsSongs(artist){
 function fetchTracks(id){
   const albumId = id;
   $http
-    .get(`https://api.spotify.com/v1/albums/${albumId}/tracks`)
-    .then(response => {
-      console.log('album tracks', response.data.items)
-      vm.albumTracks = response.data.items;
-
-    });
+  .get(`https://api.spotify.com/v1/albums/${albumId}/tracks`)
+  .then(response => {
+    vm.albumTracks = response.data.items;
+  });
 }
 }
