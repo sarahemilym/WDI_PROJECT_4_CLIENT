@@ -2,8 +2,8 @@
   <h2>New Room</h2>
   <form ng-submit="roomsCreate.create(roomsCreate.room)">
     <div class="form-group">
-      <input type="text" class="form-control" id="name" name="name" ng-model="roomsCreate.room.name" placeholder="Name" required>
+      <input type="text" class="form-control" name="name" ng-model="roomsCreate.room.name" placeholder="Name" required>
     </div>
-    <input type="submit" class="createButtons" value="Add">
+    <input type="submit" class="btn btn-block btn-primary" value="Add">
   </form>
 </section>

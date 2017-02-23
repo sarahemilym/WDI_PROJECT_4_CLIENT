@@ -22,7 +22,7 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
 
   $stateProvider
   .state('home', {
-    url: '/home',
+    url: '/',
     templateUrl: '/js/views/home.html',
     controller: 'HomeCtrl',
     controllerAs: 'home'
@@ -57,17 +57,11 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
     controller: 'UsersIndexCtrl',
     controllerAs: 'usersIndex'
   })
-  .state('usersShow', {
-    url: '/users/:id',
-    templateUrl: '/js/views/users/show.html',
-    controller: 'UsersShowCtrl',
-    controllerAs: 'usersShow'
-  })
-  .state('usersInvites', {
-    url: '/invites',
-    templateUrl: '/js/views/users/invites.html',
-    controller: 'UsersInvitesCtrl',
-    controllerAs: 'usersInvites'
+  .state('requestsIndex', {
+    url: '/request',
+    templateUrl: '/js/views/requests/index.html',
+    controller: 'RequestsIndexCtrl',
+    controllerAs: 'requestsIndex'
   });
 
   $urlRouterProvider.otherwise('/');

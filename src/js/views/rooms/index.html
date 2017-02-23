@@ -1,37 +1,9 @@
 <section class="container">
+  <a class="btn btn-block btn-primary" ui-sref="roomsCreate">Create a Room</a>
   <h1>Rooms</h1>
-  <ul>
+  <ul class="list-unstyled">
     <li ng-repeat="room in roomsIndex.rooms track by $index">
-      <p ui-sref="roomsShow({ id: room.id })">{{room.name}}</p>
+      <h3 ui-sref="roomsShow({ id: room.id })">{{room.name}}</h3>
     </li>
   </ul>
 </section>
-
-<!-- <ul>
-    <li ng-repeat="room in roomsIndex.rooms track by $index">
-      <p ui-sref="roomsShow({ id: room.id })">{{room.name}}</p>
-      <p ui-sref="usersShow({ id: room.user.id})">{{room.user.email}}</p> -->
-      <!-- <img ui-sref="eventsShow({ id: event._id })" src="{{ event.img }}"> -->
-      <!-- <div class="info">
-        <img ui-sref="usersShow({ id: event.host._id })" class="user-img" src="{{ event.host.profilePicture }}">
-        <h3 ui-sref="eventsShow({ id: event._id })">{{ event.name }}</h3> -->
-      <!-- </div> -->
-    <!-- </li>
-  </ul> -->
-
-  <!-- <div class="myRooms" ng-if="roomsIndex.myRoomsArray.length !== 0">
-    <h2>My Rooms</h2>
-    <ul>
-      <li ng-repeat="room in roomsIndex.myRoomsArray" ui-sref="roomsShow({ id: room.id })">{{room.name}}</li>
-    </ul>
-  </div>
-
-<div class="authorizedRooms">
-
-<h2>Friends Rooms</h2>
-  <ul>
-      <li ng-repeat="room in roomsIndex.authorizedRoomIds track by $index">
-        <p ui-sref="roomsShow({ id: room })">{{room}}</p>
-      </li>
-    </ul>
-</div> -->

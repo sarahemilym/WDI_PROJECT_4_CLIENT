@@ -20,6 +20,7 @@ function HomeCtrl(
   $http,
   User
 ) {
+
   if (CurrentUserService.currentUser) {
     return $state.go('roomsIndex');
   }
