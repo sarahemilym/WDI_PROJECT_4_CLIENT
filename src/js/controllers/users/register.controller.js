@@ -1,9 +1,9 @@
 angular
   .module('MuSync')
-  .controller('RegisterCtrl', RegisterCtrl);
+  .controller('UserRegisterCtrl', UserRegisterCtrl);
 
-RegisterCtrl.$inject = ['User', 'CurrentUserService', '$state'];
-function RegisterCtrl(User, CurrentUserService, $state) {
+UserRegisterCtrl.$inject = ['User', 'CurrentUserService', '$state'];
+function UserRegisterCtrl(User, CurrentUserService, $state) {
   const vm = this;
 
   vm.register = () => {
@@ -12,7 +12,7 @@ function RegisterCtrl(User, CurrentUserService, $state) {
     .$promise
     .then(user => {
       CurrentUserService.getUser();
-      $state.go('home');
+      $state.go('roomsIndex');
       console.log(vm.user);
     }, err => {
       console.log('error', err);

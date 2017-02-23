@@ -5,7 +5,7 @@ angular
 HomeCtrl.$inject = ['CurrentUserService', '$state'];
 function HomeCtrl(CurrentUserService, $state) {
   if (CurrentUserService.currentUser) {
-    return $state.go('eventsIndex');
+    return $state.go('roomsIndex');
   }
 
   const vm = this;

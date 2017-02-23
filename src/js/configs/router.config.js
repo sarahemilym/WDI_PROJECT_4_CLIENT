@@ -6,12 +6,6 @@ Router.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', '
 function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDelegateProvider, $authProvider){
   $locationProvider.html5Mode(true);
 
-  $sceDelegateProvider.resourceUrlWhitelist([
-    'self',
-    'https://api.spotify.com/*',
-    'https://embed.spotify.com/?uri='
-  ]);
-
   $authProvider.spotify({
     clientId: 'a66b7d062208471c95fc1f931d933478',
     url: '/auth/spotify',
@@ -26,24 +20,31 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
     oauthType: '2.0'
   });
 
-
   $stateProvider
-  .state('home', {
+  .state('landing', {
     url: '/',
-    template: '<h2>Home</h2>'
+    templateUrl: '/js/views/landing.html',
+    controller: 'LandingCtrl',
+    controllerAs: 'landing'
   })
-  .state('register', {
-    url: '/register',
-    templateUrl: '/js/views/users/register.html',
-    controller: 'RegisterCtrl',
-    controllerAs: 'register'
+  .state('home', {
+    url: '/home',
+    templateUrl: '/js/views/home.html',
+    controller: 'HomeCtrl',
+    controllerAs: 'home'
   })
-  .state('login', {
-    url: '/login',
-    templateUrl: '/js/views/users/login.html',
-    controller: 'LoginCtrl',
-    controllerAs: 'login'
-  })
+  // .state('register', {
+  //   url: '/register',
+  //   templateUrl: '/js/views/users/register.html',
+  //   controller: 'RegisterCtrl',
+  //   controllerAs: 'register'
+  // })
+  // .state('login', {
+  //   url: '/login',
+  //   templateUrl: '/js/views/users/login.html',
+  //   controller: 'LoginCtrl',
+  //   controllerAs: 'login'
+  // })
   .state('test', {
     url: '/test',
     templateUrl: '/js/views/test.html',

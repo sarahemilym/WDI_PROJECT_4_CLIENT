@@ -1,1 +1,13 @@
-<h1>Home</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <section ng-if="home.login">
+      <div ng-controller="UserLoginCtrl as login" ng-include src="'/js/views/users/login.html'"></div>
+      <a ng-click="home.showRegister()">Or register</a>
+    </section>
+
+    <section ng-if="home.register">
+      <div ng-controller="UserRegisterCtrl as register" ng-include src="'/js/views/users/register.html'"></div>
+      <a ng-click="home.showLogin()">Or login</a>
+    </section>
+  </div>
+</div>

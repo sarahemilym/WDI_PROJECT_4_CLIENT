@@ -1,9 +1,9 @@
 angular
 .module('MuSync')
-.controller('LoginCtrl', LoginCtrl);
+.controller('UserLoginCtrl', UserLoginCtrl);
 
-LoginCtrl.$inject = ['User', 'CurrentUserService', '$state'];
-function LoginCtrl(User, CurrentUserService, $state){
+UserLoginCtrl.$inject = ['User', 'CurrentUserService', '$state'];
+function UserLoginCtrl(User, CurrentUserService, $state){
   const vm = this;
 
   vm.login = () => {
@@ -13,7 +13,7 @@ function LoginCtrl(User, CurrentUserService, $state){
     .then(data => {
       console.log('controller', vm.user);
       CurrentUserService.getUser();
-      $state.go('home');
+      $state.go('roomsIndex');
       console.log('data', data);
     }, err => {
       console.log(err);

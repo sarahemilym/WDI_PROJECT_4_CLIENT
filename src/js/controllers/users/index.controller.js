@@ -45,8 +45,7 @@ function UsersIndexCtrl(User, $http) {
       .get('http://localhost:3000/users')
       .then(response => {
         const searchItem = response.data;
-        vm.resultArray = [];
-        // const text = vm.searchText;
+        vm.resultArray = []
 
         searchItem.forEach(function(user){
           if (vm.searchText == user.id){

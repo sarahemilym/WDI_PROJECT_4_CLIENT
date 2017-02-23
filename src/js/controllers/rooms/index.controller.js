@@ -19,7 +19,7 @@ function RoomsIndexCtrl(Room, CurrentUserService) {
       if (room.user.id == CurrentUserService.currentUser.id){
         vm.myRoomsArray.push(room)
       }
-      console.log('user loop', vm.myRoomsArray)
+    
     });
     createRoomArray(response);
 
@@ -37,7 +37,6 @@ function RoomsIndexCtrl(Room, CurrentUserService) {
   }
 
   function findMatches(a, b){
-    console.log('a', a, 'b', b)
 
     for (var i = 0; i < a.length; i++) {
       for (var j = 0; j < b.length; j++) {
@@ -47,7 +46,6 @@ function RoomsIndexCtrl(Room, CurrentUserService) {
           }
         }
       }
-      console.log('authorized rooms', vm.authorizedRoomIds);
 
       // vm.authorizedRooms = vm.authorizedRoomIds.map(function(room) {
       //   Room
