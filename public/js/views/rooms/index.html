@@ -11,8 +11,19 @@
     <!-- </li>
   </ul> -->
 
+  <div class="myRooms" ng-if="roomsIndex.myRoomsArray.length !== 0">
+    <h2>My Rooms</h2>
+    <ul>
+      <li ng-repeat="room in roomsIndex.myRoomsArray" ui-sref="roomsShow({ id: room.id })">{{room.name}}</li>
+    </ul>
+  </div>
+
+<div class="authorizedRooms">
+  
+<h2>Friends Rooms</h2>
   <ul>
       <li ng-repeat="room in roomsIndex.authorizedRoomIds track by $index">
         <p ui-sref="roomsShow({ id: room })">{{room}}</p>
       </li>
     </ul>
+</div>

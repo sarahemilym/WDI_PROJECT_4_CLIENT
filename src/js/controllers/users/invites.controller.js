@@ -2,8 +2,8 @@ angular
 .module('MuSync')
 .controller('UsersInvitesCtrl', UsersInvitesCtrl);
 
-UsersInvitesCtrl.$inject = ['$stateParams', 'Invite', 'CurrentUserService', 'User'];
-function UsersInvitesCtrl($stateParams, Invite, CurrentUserService, User) {
+UsersInvitesCtrl.$inject = ['$stateParams', 'Invite', 'CurrentUserService', 'User', 'Room'];
+function UsersInvitesCtrl($stateParams, Invite, CurrentUserService, User, Room) {
   const vm = this;
 
   findInvites();
@@ -41,10 +41,10 @@ function UsersInvitesCtrl($stateParams, Invite, CurrentUserService, User) {
 
   function addToAuthorizedRooms(id){
     console.log('id', id);
-    const room = id;
+    const roomId = id;
     const user = CurrentUserService.currentUser;
     // console.log('current user', CurrentUserService.currentUser);
-    CurrentUserService.currentUser.authorized_rooms.push(room);
+    CurrentUserService.currentUser.authorized_rooms.push(roomId);
 
     console.log('id', CurrentUserService.currentUser)
     const currentUser = CurrentUserService.currentUser
@@ -53,24 +53,45 @@ function UsersInvitesCtrl($stateParams, Invite, CurrentUserService, User) {
     .$promise
     .then((data) => {
       console.log('getting here', data)
-      const tempUser = data;
-      User
-      .get({ id: tempUser.id })
-      .$promise
-      .then((data) => {
-        console.log('fetching user', data)
-        // deleteAccepted(invite);
-      })
+      addToAuthorizedUsers(roomId);
+      // const tempUser = data;
+      // User
+      // .get({ id: tempUser.id })
+      // .$promise
+      // .then((data) => {
+      //   console.log('fetching user', data)
+      // deleteAccepted(invite);
+      // })
     });
   }
-  
-  function deleteAccepted(id) {
-    console.log('delete', id)
-    Invite
-    .delete({id: id})
+
+  function addToAuthorizedUsers(id){
+    const roomId = id;
+    const user = CurrentUserService.currentUser;
+    console.log('room id', id)
+    console.log('current user', user)
+    Room
+    .get({ id: roomId })
     .$promise
-    .then(() => {
-      findInvites();
-    });
+    .then((room) => {
+      room.authorized_users.push(roomId);
+      Room
+      .update({ id: roomId }, room)
+      .$promise
+      .then(data => {
+        console.log('room data', data)
+      })
+    })
   }
-}
+
+
+    function deleteAccepted(id) {
+      console.log('delete', id)
+      Invite
+      .delete({id: id})
+      .$promise
+      .then(() => {
+        findInvites();
+      });
+    }
+  }

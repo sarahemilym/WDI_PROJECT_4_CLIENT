@@ -5,6 +5,8 @@ angular
 RoomsIndexCtrl.$inject = ['Room', 'CurrentUserService'];
 function RoomsIndexCtrl(Room, CurrentUserService) {
   const vm  = this;
+  vm.myRoomsArray = [];
+  vm.myRooms = false;
   const roomArray = [];
   const authorizedRooms = CurrentUserService.currentUser.authorized_rooms;
   vm.authorizedRoomIds = [];
@@ -13,6 +15,12 @@ function RoomsIndexCtrl(Room, CurrentUserService) {
   .query()
   .$promise
   .then(response => {
+    response.forEach(function(room){
+      if (room.user.id == CurrentUserService.currentUser.id){
+        vm.myRoomsArray.push(room)
+      }
+      console.log('user loop', vm.myRoomsArray)
+    });
     createRoomArray(response);
 
     // const rooms = response;
@@ -40,6 +48,17 @@ function RoomsIndexCtrl(Room, CurrentUserService) {
         }
       }
       console.log('authorized rooms', vm.authorizedRoomIds);
+
+      // vm.authorizedRooms = vm.authorizedRoomIds.map(function(room) {
+      //   Room
+      //     .get(room)
+      //     .$promise
+      //     .then(data => {
+      //       return data;
+      //     });
+      // });
+      //
+      // console.log(vm.authorizedRooms);
     }
   }
   // authorizedMusicRooms();

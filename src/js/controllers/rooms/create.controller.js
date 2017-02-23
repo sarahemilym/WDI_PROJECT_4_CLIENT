@@ -13,7 +13,7 @@ function RoomsCreateCtrl(API, Room, $stateParams, CurrentUserService, $state, $a
   function createPlaylist(){
     vm.playlistCreated = true;
     const url = `https://api.spotify.com/v1/users/${vm.user_id}/playlists`;
-    const parameter = JSON.stringify({'name': vm.playlist.name, 'public': false, 'collaborative': true});
+    const parameter = JSON.stringify({'name': vm.playlist.name, 'public': true});
 
     $http
       .post(url, parameter, vm.token)

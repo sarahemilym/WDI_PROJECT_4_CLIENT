@@ -12,9 +12,9 @@
 <button ng-click="roomsShow.playlistShow()">View Playlist</button>
 
 
-<div ng-if="roomsShow.inviteFriends">
+<div ng-if="roomsShow.inviteFriendsShow">
   <div class="userSearch">
-    <form ng-submit="roomsShow.search()">
+    <form ng-submit="roomsShow.search(roomsShow.room.id)">
       <div class="input-group input-group-search">
     <p>Search</p>
       <input type="text" class="form-control"  ng-model="roomsShow.searchText" name="searchUserId" required>
@@ -28,7 +28,7 @@
   <h1>Results</h1>
   <ul>
     <li ng-repeat="result in roomsShow.resultArray">
-      <h4 ui-sref="usersShow({id: result.id})">{{result.first_name}} {{result.last_name}} - {{result.email}}</h4>
+      <h4 ng-click="roomsShow.sendRequest(roomsShow.room.id, result.id)">{{result.first_name}} {{result.last_name}} - {{result.email}}</h4>
     </li>
   </ul>
 </div>
