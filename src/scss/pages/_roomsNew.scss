@@ -1,0 +1,25 @@
+input#playlistName.form-control, input#name.form-control {
+  background: $input-color;
+  border: $input-color;
+  color: $primary-color;
+  width: 500px;
+  border-radius: 170px;
+}
+
+.createButtons {
+  background: none;
+  color: $primary-color;
+  border: none;
+}
+
+.authorize {
+  color: $primary-color;
+  background: none;
+  border: none;
+}
+
+.state-container {
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}

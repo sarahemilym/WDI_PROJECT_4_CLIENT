@@ -1,0 +1,14 @@
+nav.navbar.navbar-default {
+    background-color: $background-color;
+    border-color: $background-color;
+    color: $text-color;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+  border-color: $background-color;
+}
+
+.navbar-default {
+    background-color: black;
+    border-color: black;
+}
