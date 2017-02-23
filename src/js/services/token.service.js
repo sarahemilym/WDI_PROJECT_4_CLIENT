@@ -6,18 +6,20 @@ TokenService.$inject = ['$window', 'jwtHelper'];
 function TokenService($window, jwtHelper) {
   const self = this;
 
-  self.setToken = (token) => {
-    return $window.localStorage.setItem('Auth-token', token);
+  self.setItem = (tokenName, token) => {
+    return $window.localStorage.setItem(tokenName, token);
   };
-  self.getToken = () => {
-    return $window.localStorage.getItem('Auth-token');
+
+  self.getItem = (tokenName) => {
+    return $window.localStorage.getItem(tokenName);
   };
+
   self.decodeToken = () => {
-    const token = self.getToken();
+    const token = self.getItem('Auth-token');
     return token ? jwtHelper.decodeToken(token) : null;
   };
+
   self.removeToken = () => {
     $window.localStorage.clear();
-    console.log('remove token');
   };
 }

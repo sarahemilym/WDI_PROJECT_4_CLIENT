@@ -4,5 +4,6 @@ angular
     'ngResource',
     'ui.bootstrap',
     'angular-jwt',
-    'satellizer'
+    'satellizer',
+    'ngActionCable'
   ]);

@@ -13,7 +13,7 @@ function UsersShowCtrl(API, $stateParams, User, $state, CurrentUserService){
 
   User.get($stateParams, (data) => {
     vm.user = data;
-    console.log(data)
+    console.log(data);
 
   });
 }

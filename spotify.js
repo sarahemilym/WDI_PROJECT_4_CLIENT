@@ -15,9 +15,9 @@ module.exports = function(robot) {
   var addTrack, authorizeApp, authorizeAppUser, findAndAddFirstTrack, findTrack, refreshAccessToken, removeTrack, requestInitialTokens;
   authorizeApp = function(res, func) {
     var data, encodedAppId;
-    encodedAppId = new Buffer(process.env.SPOTIFY_APP_CLIENT_ID + ":" + process.env.SPOTIFY_APP_CLIENT_SECRET).toString('base64');
-    data = "grant_type=client_credentials";
-    return res.http("https://accounts.spotify.com/api/token").header("Authorization", "Basic " + encodedAppId).header('Content-Type', 'application/x-www-form-urlencoded').post(data)((function(_this) {
+    encodedAppId = new Buffer(process.env.SPOTIFY_APP_CLIENT_ID + ':' + process.env.SPOTIFY_APP_CLIENT_SECRET).toString('base64');
+    data = 'grant_type=client_credentials';
+    return res.http('https://accounts.spotify.com/api/token').header('Authorization', 'Basic ' + encodedAppId).header('Content-Type', 'application/x-www-form-urlencoded').post(data)((function(_this) {
       return function(err, resp, body) {
         var response;
         response = JSON.parse(body);
@@ -27,14 +27,14 @@ module.exports = function(robot) {
   };
   requestInitialTokens = function(res, func) {
     var data, encodedAppId;
-    encodedAppId = new Buffer(process.env.SPOTIFY_APP_CLIENT_ID + ":" + process.env.SPOTIFY_APP_CLIENT_SECRET).toString('base64');
-    data = "grant_type=authorization_code&code=" + process.env.SPOTIFY_OAUTH_CODE + "&redirect_uri=" + process.env.SPOTIFY_REDIRECT_URI;
-    return res.http("https://accounts.spotify.com/api/token").header("Authorization", "Basic " + encodedAppId).header('Content-Type', 'application/x-www-form-urlencoded').post(data)((function(_this) {
+    encodedAppId = new Buffer(process.env.SPOTIFY_APP_CLIENT_ID + ':' + process.env.SPOTIFY_APP_CLIENT_SECRET).toString('base64');
+    data = 'grant_type=authorization_code&code=' + process.env.SPOTIFY_OAUTH_CODE + '&redirect_uri=' + process.env.SPOTIFY_REDIRECT_URI;
+    return res.http('https://accounts.spotify.com/api/token').header('Authorization', 'Basic ' + encodedAppId).header('Content-Type', 'application/x-www-form-urlencoded').post(data)((function(_this) {
       return function(err, resp, body) {
         var response;
         response = JSON.parse(body);
         if (response.error) {
-          res.send("An error occured, " + response.error_description);
+          res.send('An error occured, ' + response.error_description);
         }
         robot.brain.set('access_token', response.access_token);
         robot.brain.set('refresh_token', response.refresh_token);
@@ -46,9 +46,9 @@ module.exports = function(robot) {
   refreshAccessToken = function(res, func) {
     var data, encodedAppId;
     console.log('refreshAccessToken', robot);
-    encodedAppId = new Buffer(process.env.SPOTIFY_APP_CLIENT_ID + ":" + process.env.SPOTIFY_APP_CLIENT_SECRET).toString('base64');
-    data = "grant_type=refresh_token&refresh_token=" + robot.brain.get('refresh_token');
-    return res.http("https://accounts.spotify.com/api/token").header("Authorization", "Basic " + encodedAppId).header('Content-Type', 'application/x-www-form-urlencoded').post(data)((function(_this) {
+    encodedAppId = new Buffer(process.env.SPOTIFY_APP_CLIENT_ID + ':' + process.env.SPOTIFY_APP_CLIENT_SECRET).toString('base64');
+    data = 'grant_type=refresh_token&refresh_token=' + robot.brain.get('refresh_token');
+    return res.http('https://accounts.spotify.com/api/token').header('Authorization', 'Basic ' + encodedAppId).header('Content-Type', 'application/x-www-form-urlencoded').post(data)((function(_this) {
       return function(err, resp, body) {
         var response;
         response = JSON.parse(body);
@@ -73,18 +73,18 @@ module.exports = function(robot) {
     }
   };
   addTrack = function(res) {
-    return res.http("https://api.spotify.com/v1/users/" + process.env.SPOTIFY_USER_ID + "/playlists/" + process.env.SPOTIFY_PLAYLIST_ID + "/tracks?uris=spotify%3Atrack%3A" + res.match[1]).header("Authorization", "Bearer " + robot.brain.get('access_token')).header('Content-Type', 'application/json').header('Accept', 'application/json').post()((function(_this) {
+    return res.http('https://api.spotify.com/v1/users/' + process.env.SPOTIFY_USER_ID + '/playlists/' + process.env.SPOTIFY_PLAYLIST_ID + '/tracks?uris=spotify%3Atrack%3A' + res.match[1]).header('Authorization', 'Bearer ' + robot.brain.get('access_token')).header('Content-Type', 'application/json').header('Accept', 'application/json').post()((function(_this) {
       return function(err, resp, body) {
         var response;
         response = JSON.parse(body);
         if (response.snapshot_id) {
-          return res.send("Track added");
+          return res.send('Track added');
         }
       };
     })(this));
   };
   findAndAddFirstTrack = function(res, token) {
-    return res.http("https://api.spotify.com/v1/search?q=" + res.match[1] + "&type=track&market=US&limit=1").header("Authorization", "Bearer " + token).header('Accept', 'application/json').get()((function(_this) {
+    return res.http('https://api.spotify.com/v1/search?q=' + res.match[1] + '&type=track&market=US&limit=1').header('Authorization', 'Bearer ' + token).header('Accept', 'application/json').get()((function(_this) {
       return function(err, resp, body) {
         var i, item, len, ref, response;
         response = JSON.parse(body);
@@ -102,30 +102,30 @@ module.exports = function(robot) {
     data = JSON.stringify({
       tracks: [
         {
-          uri: "spotify:track:" + res.match[1]
+          uri: 'spotify:track:' + res.match[1]
         }
       ]
     });
-    return res.http("https://api.spotify.com/v1/users/" + process.env.SPOTIFY_USER_ID + "/playlists/" + process.env.SPOTIFY_PLAYLIST_ID + "/tracks").header("Authorization", "Bearer " + robot.brain.get('access_token')).header('Content-Type', 'application/json')["delete"](data)((function(_this) {
+    return res.http('https://api.spotify.com/v1/users/' + process.env.SPOTIFY_USER_ID + '/playlists/' + process.env.SPOTIFY_PLAYLIST_ID + '/tracks').header('Authorization', 'Bearer ' + robot.brain.get('access_token')).header('Content-Type', 'application/json')['delete'](data)((function(_this) {
       return function(err, resp, body) {
         var response;
         response = JSON.parse(body);
         if (response.snapshot_id) {
-          return res.send("Track removed");
+          return res.send('Track removed');
         }
       };
     })(this));
   };
   findTrack = function(res, token) {
-    return res.http("https://api.spotify.com/v1/search?q=" + res.match[1] + "&type=track&market=US&limit=10").header("Authorization", "Bearer " + token).header('Accept', 'application/json').get()((function(_this) {
+    return res.http('https://api.spotify.com/v1/search?q=' + res.match[1] + '&type=track&market=US&limit=10').header('Authorization', 'Bearer ' + token).header('Accept', 'application/json').get()((function(_this) {
       return function(err, resp, body) {
         var i, item, len, ref, response, string;
         response = JSON.parse(body);
-        string = "";
+        string = '';
         ref = response.tracks.items;
         for (i = 0, len = ref.length; i < len; i++) {
           item = ref[i];
-          string = string + (item.name + " - " + item.artists[0].name + " - " + item.album.name + " - " + item.id + " \n");
+          string = string + (item.name + ' - ' + item.artists[0].name + ' - ' + item.album.name + ' - ' + item.id + ' \n');
         }
         return res.send(string);
       };

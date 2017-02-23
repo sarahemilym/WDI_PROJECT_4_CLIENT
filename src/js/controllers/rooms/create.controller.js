@@ -2,60 +2,48 @@ angular
 .module('MuSync')
 .controller('RoomsCreateCtrl', RoomsCreateCtrl);
 
-RoomsCreateCtrl.$inject = ['API', 'Room', '$stateParams', 'CurrentUserService', '$state', '$auth', '$window', '$http'];
-function RoomsCreateCtrl(API, Room, $stateParams, CurrentUserService, $state, $auth, $window, $http){
+RoomsCreateCtrl.$inject = [
+  'Room',
+  '$stateParams',
+  '$state',
+  '$http',
+  'TokenService'
+];
+function RoomsCreateCtrl(
+  Room,
+  $stateParams,
+  $state,
+  $http,
+  TokenService
+){
   const vm = this;
+  const spotifyId = TokenService.getItem('spotify_id');
 
-  vm.create = roomsCreate;
-  vm.authorize = authorize;
-  vm.createPlaylist = createPlaylist;
+  vm.create = (room) => {
+    const url = `https://api.spotify.com/v1/users/${spotifyId}/playlists`;
 
-  function createPlaylist(){
-    vm.playlistCreated = true;
-    const url = `https://api.spotify.com/v1/users/${vm.user_id}/playlists`;
-    const parameter = JSON.stringify({'name': vm.playlist.name, 'public': true});
+    const parameter = JSON.stringify({
+      'name': room.name,
+      'public': false,
+      'collaborative': false
+    });
 
     $http
-      .post(url, parameter, vm.token)
-      .then(function(data) {
-        vm.playlistId = data.data.id;
-      })
-      .catch(err => {
+      .post(url, parameter)
+      .then(function(response) {
+        room.playlist_id = response.data.id;
+        room.uri = response.data.uri;
+
+        Room
+        .save({ room: room })
+        .$promise
+        .then((response) => {
+          $state.go('roomsShow', {id: response.id});
+        }, err => {
+          console.log(err);
+        });
+      }, err => {
         console.log(err);
       });
-  }
-
-  function roomsCreate(){
-    CurrentUserService.getUser();
-    vm.room.user_id = CurrentUserService.currentUser.id;
-    vm.room.playlist_id = vm.playlistId;
-    console.log('playlist id', vm.room.playlist_id)
-    vm.room.owner_id = vm.user_id;
-
-    return Room
-    .save({ room: vm.room })
-    .$promise
-    .then((response) => {
-      $state.go('roomsShow', {id: response.id});
-      console.log('roomsCreate', response);
-    });
-  }
-
-  function authorize(provider) {
-    $auth.authenticate(provider)
-    .then(() => {
-      vm.authorized = true;
-      vm.token = $window.localStorage.getItem('satellizer_token');
-      $http
-      .get('https://api.spotify.com/v1/me',
-        { headers: {Authorization: `Bearer ${vm.token}`}
-        })
-      .then(response => {
-        vm.user_id = response.data.id;
-      });
-    })
-    .catch(function(response) {
-      console.log('something went wrong', response);
-    });
-  }
+  };
 }

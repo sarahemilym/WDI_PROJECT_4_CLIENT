@@ -1,4 +1,12 @@
-<h1>Rooms</h1>
+<section class="container">
+  <h1>Rooms</h1>
+  <ul>
+    <li ng-repeat="room in roomsIndex.rooms track by $index">
+      <p ui-sref="roomsShow({ id: room.id })">{{room.name}}</p>
+    </li>
+  </ul>
+</section>
+
 <!-- <ul>
     <li ng-repeat="room in roomsIndex.rooms track by $index">
       <p ui-sref="roomsShow({ id: room.id })">{{room.name}}</p>
@@ -11,7 +19,7 @@
     <!-- </li>
   </ul> -->
 
-  <div class="myRooms" ng-if="roomsIndex.myRoomsArray.length !== 0">
+  <!-- <div class="myRooms" ng-if="roomsIndex.myRoomsArray.length !== 0">
     <h2>My Rooms</h2>
     <ul>
       <li ng-repeat="room in roomsIndex.myRoomsArray" ui-sref="roomsShow({ id: room.id })">{{room.name}}</li>
@@ -19,11 +27,11 @@
   </div>
 
 <div class="authorizedRooms">
-  
+
 <h2>Friends Rooms</h2>
   <ul>
       <li ng-repeat="room in roomsIndex.authorizedRoomIds track by $index">
         <p ui-sref="roomsShow({ id: room })">{{room}}</p>
       </li>
     </ul>
-</div>
+</div> -->

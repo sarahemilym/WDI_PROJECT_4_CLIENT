@@ -24,9 +24,9 @@ function UsersInvitesCtrl($stateParams, Invite, CurrentUserService, User, Room) 
 
       invites.forEach(function(invite){
         if (invite.receiver_id == CurrentUserService.currentUser.id) {
-          console.log('invite', invite)
-          vm.messagesArray.push(invite)
-          console.log('array', vm.messagesArray)
+          console.log('invite', invite);
+          vm.messagesArray.push(invite);
+          console.log('array', vm.messagesArray);
           // const url = 'http://localhost:3000/register';
           // const parameter = JSON.stringify({'authorized_rooms': invite.room_id});
           // $http
@@ -46,13 +46,13 @@ function UsersInvitesCtrl($stateParams, Invite, CurrentUserService, User, Room) 
     // console.log('current user', CurrentUserService.currentUser);
     CurrentUserService.currentUser.authorized_rooms.push(roomId);
 
-    console.log('id', CurrentUserService.currentUser)
-    const currentUser = CurrentUserService.currentUser
+    console.log('id', CurrentUserService.currentUser);
+    const currentUser = CurrentUserService.currentUser;
     User
     .update({ id: currentUser.id }, currentUser)
     .$promise
     .then((data) => {
-      console.log('getting here', data)
+      console.log('getting here', data);
       addToAuthorizedUsers(roomId);
       // const tempUser = data;
       // User
@@ -68,8 +68,8 @@ function UsersInvitesCtrl($stateParams, Invite, CurrentUserService, User, Room) 
   function addToAuthorizedUsers(id){
     const roomId = id;
     const user = CurrentUserService.currentUser;
-    console.log('room id', id)
-    console.log('current user', user)
+    console.log('room id', id);
+    console.log('current user', user);
     Room
     .get({ id: roomId })
     .$promise
@@ -79,19 +79,19 @@ function UsersInvitesCtrl($stateParams, Invite, CurrentUserService, User, Room) 
       .update({ id: roomId }, room)
       .$promise
       .then(data => {
-        console.log('room data', data)
-      })
-    })
+        console.log('room data', data);
+      });
+    });
   }
 
 
-    function deleteAccepted(id) {
-      console.log('delete', id)
-      Invite
+  function deleteAccepted(id) {
+    console.log('delete', id);
+    Invite
       .delete({id: id})
       .$promise
       .then(() => {
         findInvites();
       });
-    }
   }
+}

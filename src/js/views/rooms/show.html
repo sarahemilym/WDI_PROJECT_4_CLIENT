@@ -1,4 +1,60 @@
-<h1 class="room-show-title">{{roomsShow.room.name}}</h1> <button class="room-show-buttons" ng-if="roomsShow.currentUserPlaylist" ui-sref="roomsEdit({ id: roomsShow.room.id })">Edit</button><button class="room-show-buttons" ng-click="roomsShow.delete(roomsShow.room)" ng-if="roomsShow.currentUserPlaylist">Delete</button>
+<section class="container">
+  <h1>{{roomsShow.room.name}} by {{roomsShow.room.user.first_name }}</h1>
+  <h2>Playlist Id: {{roomsShow.room.playlist_id }}</h2>
+  <h2>Uri: {{ roomsShow.room.uri }}</h2>
+  <h2>Track Uri: {{ roomsShow.room.track_uri }}</h2>
+
+  <div class="userSearch">
+    <form ng-submit="roomsShow.search(roomsShow.searchText)">
+      <div class="input-group input-group-search">
+        <p>Search</p>
+        <input type="text" class="form-control"  ng-model="roomsShow.searchText" name="searchUserId" required>
+        <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+      </div>
+    </form>
+    <ul>
+      <li ng-repeat="user in roomsShow.resultArray">
+        <h4 ng-click="roomsShow.sendRequest(user.id)">{{user.first_name}} {{user.last_name}} - {{user.email}}</h4>
+      </li>
+    </ul>
+  </div>
+
+  {{ roomsShow.room.track_uri }}
+
+  <iframe id="player" ng-if="roomsShow.room.track_uri" ng-src="{{ roomsShow.room.track_uri | spotifyEmbedUrl }}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+
+  <!-- <iframe ng-src="{{roomsShow.room.uri | spotifyEmbedUrl }}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe> -->
+
+  <form ng-submit="roomsShow.searchTracks(roomsShow.searchTracksText)">
+    <div class="input-group input-group-search">
+      <input type="text" class="form-control"  ng-model="roomsShow.searchTracksText" name="searchTracks" placeholder="Search Tracks" required>
+      <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+    </div>
+  </form>
+
+  <div ng-if="roomsShow.results">
+    <ul>
+      <li ng-repeat="track in roomsShow.results">
+        <h5>{{track.name}}</h5>
+        <button class="btn btn-primary" ng-click="roomsShow.showTrack(track)">Play</button>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <h1 class="room-show-title">{{roomsShow.room.name}}</h1> <button class="room-show-buttons" ng-if="roomsShow.currentUserPlaylist" ui-sref="roomsEdit({ id: roomsShow.room.id })">Edit</button><button class="room-show-buttons" ng-click="roomsShow.delete(roomsShow.room)" ng-if="roomsShow.currentUserPlaylist">Delete</button>
 
 <div class="user-details">
 <p ng-if="roomsShow.currentUserPlaylist" ui-sref="usersShow({id: roomsShow.room.user.id})">This is your playlist... See profile</p>
@@ -46,7 +102,7 @@
   <h1>{{roomsShow.playlist.name}}</h1>
 
   <div class="tile col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-    <!-- <h2>Search Artists</h2>
+    <h2>Search Artists</h2>
 
     <form ng-submit="roomsShow.searchArtists()">
       <div class="input-group input-group-search">
@@ -55,14 +111,13 @@
         <input class="btn btn-primary btn-block" type="submit" value="Submit" />
       </div>
     </form>
-  </div> -->
+  </div>
 
   <div class="tile col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
     <h2>Search songs</h2>
 
     <form ng-submit="roomsShow.searchTracks()">
       <div class="input-group input-group-search">
-
         <input type="text" class="form-control"  ng-model="roomsShow.searchTracksText" name="searchTracks" required>
         <input class="btn btn-primary btn-block" type="submit" value="Submit" />
       </div>
@@ -71,13 +126,12 @@
 
   <div class="results">
     <h1>Results</h1>
-    <!-- <div ng-if="roomsShow.searchstatusArtists"> -->
       <h1>Results</h1>
       <ul>
         <li ng-repeat="result in RoomsShowCtrl.results">
           <h5 ng-click="roomsShow.findArtistsSongs(result.id)">{{result.name}}</h5>
           <img src="{{result.images[0].url}}" height="100px" width:"100px"/>
-          </li>
+        </li>
       </ul>
     </div>
 
@@ -87,7 +141,6 @@
           <h5>{{result.name}}</h5>
           <audio controls>
             <source src="{{result.preview_url}}">
-
           </audio>
           <p>Artist: {{result.artists[0].name}}</p>
           <p>Album: {{result.album.name}}</p>
@@ -117,4 +170,4 @@
       </ul>
     </div>
   </div>
-</div>
+</div> -->

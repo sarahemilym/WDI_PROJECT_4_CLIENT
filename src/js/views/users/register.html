@@ -1,19 +1,22 @@
 <h1>Register</h1>
 
-<form ng-submit="register.register()">
+<form ng-submit="home.register(home.user)">
   <p>required fields *</p>
 
   <div class="form-group">
-    <input class="form-control" type="first_name" name="first_name" ng-model="register.user.first_name" placeholder="First Name" required>
+    <input class="form-control" type="first_name" name="first_name" ng-model="home.user.first_name" placeholder="First Name" required>
   </div>
   <div class="form-group">
-    <input class="form-control" type="email" name="email" ng-model="register.user.email" placeholder="Email" required>
+    <input class="form-control" type="last_name" name="last_name" ng-model="home.user.last_name" placeholder="Last Name" required>
   </div>
   <div class="form-group">
-    <input class="form-control" type="password" name="password" ng-model="register.user.password" placeholder="Password" required>
+    <input class="form-control" type="email" name="email" ng-model="home.user.email" placeholder="Email" required>
   </div>
   <div class="form-group">
-    <input class="form-control" type="password" name="passwordConfirmation" ng-model="register.user.passwordConfirmation" placeholder="Password confirmation" required>
+    <input class="form-control" type="password" name="password" ng-model="home.user.password" placeholder="Password" required>
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="password" name="passwordConfirmation" ng-model="home.user.passwordConfirmation" placeholder="Password confirmation" required>
   </div>
   <input class="btn btn-primary btn-block" type="submit" value="Submit" />
 </form>

@@ -21,35 +21,11 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
   });
 
   $stateProvider
-  .state('landing', {
-    url: '/',
-    templateUrl: '/js/views/landing.html',
-    controller: 'LandingCtrl',
-    controllerAs: 'landing'
-  })
   .state('home', {
     url: '/home',
     templateUrl: '/js/views/home.html',
     controller: 'HomeCtrl',
     controllerAs: 'home'
-  })
-  // .state('register', {
-  //   url: '/register',
-  //   templateUrl: '/js/views/users/register.html',
-  //   controller: 'RegisterCtrl',
-  //   controllerAs: 'register'
-  // })
-  // .state('login', {
-  //   url: '/login',
-  //   templateUrl: '/js/views/users/login.html',
-  //   controller: 'LoginCtrl',
-  //   controllerAs: 'login'
-  // })
-  .state('test', {
-    url: '/test',
-    templateUrl: '/js/views/test.html',
-    controller: 'TestCtrl',
-    controllerAs: 'test'
   })
   .state('roomsIndex', {
     url: '/rooms',
