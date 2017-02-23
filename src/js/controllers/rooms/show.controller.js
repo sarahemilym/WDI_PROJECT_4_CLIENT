@@ -22,12 +22,14 @@ function RoomsShowCtrl(API, $stateParams, User, Room, CurrentUserService, $state
   vm.showPlaylist        = false;
   vm.searchstatusArtists = false;
   vm.searchstatusTracks  = false;
-  showUsers();
+
 
   Room.get($stateParams, (data) => {
     vm.room = data;
+    vm.authorizedUsers = data.authorized_users
     console.log('room', vm.room)
     checkUser();
+    // showUsers();
     getPlaylist();
   });
 
@@ -51,35 +53,50 @@ function RoomsShowCtrl(API, $stateParams, User, Room, CurrentUserService, $state
     }
   }
 
-  function showUsers() {
-    User
-    .query()
-    .$promise
-    .then(response => {
-      response.forEach(function(user){
-        vm.userObject = user
-        console.log('userroom', user)
-        console.log('authorized', user.authorized_rooms)
-        vm.authorized = user.authorized_rooms;
-        authorized()
-      });
-    });
-  }
+  // function showUsers() {
+  //   console.log('authorized users', vm.authorizedUsers)
+  //   User
+  //   .get()
+  //   .$promise
+  //   .then(response => {
+  //     const user = response.data;
+  //     vm.resultArray = [];
+  //
+  //     searchItem.forEach(function(user){
+  //       if (vm.searchText == user.id){
+  //         console.log(user)
+  //         vm.resultArray.push(user);
+  //       } else if (vm.searchText === user.email){
+  //         vm.resultArray.push(user);
+  //       } else if (vm.searchText === user.first_name){
+  //         vm.resultArray.push(user);
+  //       } else if (vm.searchText === user.last_name){
+  //         vm.resultArray.push(user);
+  //       } else if (vm.searchText === user.spotify_id){
+  //         vm.resultArray.push(user);
+  //       }
+  //     });
+  //   });
+  // }
 
   function authorized(){
-    vm.authorized.forEach(function(user){
+    vm.addToAuthorizedUsers.forEach(function(user){
       console.log(user)
     })
   }
 
   function searchArtists() {
+    console.log('getting here')
     vm.searchstatusArtists = false;
     const text = vm.searchArtistsText;
+    console.log('text', text)
 
     $http
     .get('https://api.spotify.com/v1/search?q='+text+'&type=artist')
     .then(response => {
+      console.log('getting here also', response)
       vm.results = response.data.artists.items;
+      console.log('artists', vm.results)
 
       vm.searchstatusArtists = true;
       vm.searchstatusTracks = false;

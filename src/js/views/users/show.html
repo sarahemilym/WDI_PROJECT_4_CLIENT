@@ -1,5 +1,7 @@
 <h1>{{usersShow.user.email}}</h1>
 
+<h2>My Rooms</h2>
+
 <ul>
   <li ng-repeat="room in usersShow.user.rooms">
   <p ui-sref="roomsShow({id: usersShow.rooms.id})">{{room.name}}</p></li>

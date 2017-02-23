@@ -50,7 +50,7 @@
   <h1>{{roomsShow.playlist.name}}</h1>
 
   <div class="tile col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-    <h2>Search Artists</h2>
+    <!-- <h2>Search Artists</h2>
 
     <form ng-submit="roomsShow.searchArtists()">
       <div class="input-group input-group-search">
@@ -59,7 +59,7 @@
         <input class="btn btn-primary btn-block" type="submit" value="Submit" />
       </div>
     </form>
-  </div>
+  </div> -->
 
   <div class="tile col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
     <h2>Search songs</h2>
@@ -75,10 +75,10 @@
 
   <div class="results">
     <h1>Results</h1>
-    <div ng-if="roomsShow.searchstatusArtists">
+    <!-- <div ng-if="roomsShow.searchstatusArtists"> -->
       <h1>Results</h1>
       <ul>
-        <li ng-repeat="result in roomsShow.results">
+        <li ng-repeat="result in RoomsShowCtrl.results">
           <h5 ng-click="roomsShow.findArtistsSongs(result.id)">{{result.name}}</h5>
           <img src="{{result.images[0].url}}" height="100px" width:"100px"/>
           </li>
