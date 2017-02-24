@@ -3,7 +3,33 @@ input#playlistName.form-control, input#name.form-control {
   border: $input-color;
   color: $primary-color;
   width: 500px;
-  border-radius: 170px;
+}
+
+input.form-control{
+  background: $input-color;
+  border: none;
+  border-radius: 0px;
+}
+
+input.form-control:active{
+  outline: none;
+}
+
+a.logo {
+  display: none !important;
+}
+
+input.btn.btn-primary {
+  background: none;
+  border: none;
+  color: $primary-color;
+}
+
+input.btn.btn-primary:active{
+  background: $background-color;
+  border: none;
+  outline: none;
+  color: $primary-color;
 }
 
 .createButtons {
@@ -21,5 +47,9 @@ input#playlistName.form-control, input#name.form-control {
 .state-container {
   width: 500px;
   margin: 0 auto;
+  text-align: center;
+}
+
+.newRoom {
   text-align: center;
 }

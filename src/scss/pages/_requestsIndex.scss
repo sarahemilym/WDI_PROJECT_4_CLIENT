@@ -1,0 +1,34 @@
+.requestsIndex {
+  text-align: center;
+}
+.requests {
+  font-weight: 100;
+}
+
+.requestMessages {
+  margin: 20px;
+
+  h4 {
+    margin-top: 30px;
+  }
+}
+
+button.btn.btn-success {
+  background: none;
+  border: none;
+
+  &:hover{
+    background: #5cb85c;
+    transition: background 0.5s;
+  }
+}
+
+button.btn.btn-danger {
+  background: none;
+  border: none;
+
+  &:hover{
+    background: #d9534f;
+    transition: background 0.5s;
+  }
+}

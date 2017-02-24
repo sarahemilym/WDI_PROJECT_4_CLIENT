@@ -1,21 +1,22 @@
 <section class="container">
-  <h1>{{roomsShow.room.name}} by {{roomsShow.room.user.first_name }}</h1>
+  <h1 class="title">{{roomsShow.room.name}} by {{roomsShow.room.user.first_name }}</h1>
 
   <iframe id="player" ng-if="roomsShow.room.track_uri" ng-src="{{ roomsShow.room.track_uri | spotifyEmbedUrl }}" width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>
 
-  <div class="row">
-    <div class="colsm-12 col-md-6 col-lg-6">
-      <h2>Add User</h2>
-      <form ng-submit="roomsShow.search(roomsShow.searchText)">
-        <div class="form-group">
-          <input type="text" class="form-control"  ng-model="roomsShow.searchText" name="searchUserId" placeholder="Add a user" required>
-          <input class="btn btn-primary btn-block" type="submit" value="Submit" />
-        </div>
-      </form>
-      <ul ng-if="roomsShow.resultArray" class="list-unstyled">
-        <li ng-repeat="user in roomsShow.resultArray">
-          <h4>{{user.first_name}} {{user.last_name}} - {{user.email}}</h4>
-          <button
+  <div class="search-music">
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <h4>Add User</h4>
+        <form ng-submit="roomsShow.search(roomsShow.searchText)">
+          <div class="form-group">
+            <input type="text" class="form-control"  ng-model="roomsShow.searchText" name="searchUserId" placeholder="Add a user" required>
+            <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+          </div>
+        </form>
+        <ul ng-if="roomsShow.resultArray" class="list-unstyled">
+          <li ng-repeat="user in roomsShow.resultArray">
+            <h6>{{user.first_name}} {{user.last_name}} - {{user.email}}</h6>
+            <button
             class="btn btn-primary"
             ng-click="roomsShow.sendRequest(user.id)">
             Add
@@ -23,8 +24,8 @@
         </li>
       </ul>
     </div>
-    <div class="colsm-12 col-md-6 col-lg-6">
-      <h2>Add Track</h2>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <h4>Add Track</h4>
       <form ng-submit="roomsShow.searchTracks(roomsShow.searchTracksText)">
         <div class="form-group">
           <input type="text" class="form-control"  ng-model="roomsShow.searchTracksText" name="searchTracks" placeholder="Search Tracks" required>
@@ -35,14 +36,15 @@
         <li ng-repeat="track in roomsShow.results">
           <h4>{{track.name}}</h4>
           <button
-            class="btn btn-primary"
-            ng-click="roomsShow.showTrack(track)">Play</button>
+          class="btn btn-primary"
+          ng-click="roomsShow.showTrack(track)">Play</button>
         </li>
       </ul>
     </div>
   </div>
+</div>
 
-  <!-- <iframe ng-src="{{roomsShow.room.uri | spotifyEmbedUrl }}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe> -->
+<!-- <iframe ng-src="{{roomsShow.room.uri | spotifyEmbedUrl }}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe> -->
 </section>
 
 
@@ -68,109 +70,109 @@
 
 
 <div ng-if="roomsShow.inviteFriendsShow">
-  <div class="userSearch">
-    <form ng-submit="roomsShow.search(roomsShow.room.id)">
-      <div class="input-group input-group-search">
-    <p>Search</p>
-      <input type="text" class="form-control"  ng-model="roomsShow.searchText" name="searchUserId" required>
-      <input class="btn btn-primary btn-block" type="submit" value="Submit" />
-    </div>
-  </form>
+<div class="userSearch">
+<form ng-submit="roomsShow.search(roomsShow.room.id)">
+<div class="input-group input-group-search">
+<p>Search</p>
+<input type="text" class="form-control"  ng-model="roomsShow.searchText" name="searchUserId" required>
+<input class="btn btn-primary btn-block" type="submit" value="Submit" />
+</div>
+</form>
 
-  </div>
+</div>
 
 
-  <h1>Results</h1>
-  <ul>
-    <li ng-repeat="result in roomsShow.resultArray">
-      <h4 ng-click="roomsShow.sendRequest(roomsShow.room.id, result.id)">{{result.first_name}} {{result.last_name}} - {{result.email}}</h4>
-    </li>
-  </ul>
+<h1>Results</h1>
+<ul>
+<li ng-repeat="result in roomsShow.resultArray">
+<h4 ng-click="roomsShow.sendRequest(roomsShow.room.id, result.id)">{{result.first_name}} {{result.last_name}} - {{result.email}}</h4>
+</li>
+</ul>
 </div>
 
 <div class="playlist">
-  <h1>{{roomsShow.fullPlaylist.name}}</h1>
+<h1>{{roomsShow.fullPlaylist.name}}</h1>
 
-  <ul>
-    <li ng-repeat="item in roomsShow.fullPlaylist">
-    <h5>{{item.track.name}}</h5>
-    <p>{{item.track.artists[0].name}}</p>
-  </li>
-  </ul>
+<ul>
+<li ng-repeat="item in roomsShow.fullPlaylist">
+<h5>{{item.track.name}}</h5>
+<p>{{item.track.artists[0].name}}</p>
+</li>
+</ul>
 
-  <iframe ng-src="{{roomsShow.uri | spotifyEmbedUrl}}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>
+<iframe ng-src="{{roomsShow.uri | spotifyEmbedUrl}}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>
 </div>
 
 <div class="selectForPlaylist">
-  <h1>{{roomsShow.playlist.name}}</h1>
+<h1>{{roomsShow.playlist.name}}</h1>
 
-  <div class="tile col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-    <h2>Search Artists</h2>
+<div class="tile col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+<h2>Search Artists</h2>
 
-    <form ng-submit="roomsShow.searchArtists()">
-      <div class="input-group input-group-search">
+<form ng-submit="roomsShow.searchArtists()">
+<div class="input-group input-group-search">
 
-        <input type="text" class="form-control"  ng-model="roomsShow.searchArtistsText" name="search" required>
-        <input class="btn btn-primary btn-block" type="submit" value="Submit" />
-      </div>
-    </form>
-  </div>
+<input type="text" class="form-control"  ng-model="roomsShow.searchArtistsText" name="search" required>
+<input class="btn btn-primary btn-block" type="submit" value="Submit" />
+</div>
+</form>
+</div>
 
-  <div class="tile col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-    <h2>Search songs</h2>
+<div class="tile col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+<h2>Search songs</h2>
 
-    <form ng-submit="roomsShow.searchTracks()">
-      <div class="input-group input-group-search">
-        <input type="text" class="form-control"  ng-model="roomsShow.searchTracksText" name="searchTracks" required>
-        <input class="btn btn-primary btn-block" type="submit" value="Submit" />
-      </div>
-    </form>
-  </div>
+<form ng-submit="roomsShow.searchTracks()">
+<div class="input-group input-group-search">
+<input type="text" class="form-control"  ng-model="roomsShow.searchTracksText" name="searchTracks" required>
+<input class="btn btn-primary btn-block" type="submit" value="Submit" />
+</div>
+</form>
+</div>
 
-  <div class="results">
-    <h1>Results</h1>
-      <h1>Results</h1>
-      <ul>
-        <li ng-repeat="result in RoomsShowCtrl.results">
-          <h5 ng-click="roomsShow.findArtistsSongs(result.id)">{{result.name}}</h5>
-          <img src="{{result.images[0].url}}" height="100px" width:"100px"/>
-        </li>
-      </ul>
-    </div>
+<div class="results">
+<h1>Results</h1>
+<h1>Results</h1>
+<ul>
+<li ng-repeat="result in RoomsShowCtrl.results">
+<h5 ng-click="roomsShow.findArtistsSongs(result.id)">{{result.name}}</h5>
+<img src="{{result.images[0].url}}" height="100px" width:"100px"/>
+</li>
+</ul>
+</div>
 
-    <div ng-if="roomsShow.searchstatusTracks">
-      <ul>
-        <li ng-repeat="result in roomsShow.results">
-          <h5>{{result.name}}</h5>
-          <audio controls>
-            <source src="{{result.preview_url}}">
-          </audio>
-          <p>Artist: {{result.artists[0].name}}</p>
-          <p>Album: {{result.album.name}}</p>
-          <p>{{result.uri}}</p>
-          <button ng-click="roomsShow.addToPlaylist(result.uri)">Add to Playlist</button>
-          <iframe src="{{roomsShow.player}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-          </li>
-      </ul>
-    </div>
+<div ng-if="roomsShow.searchstatusTracks">
+<ul>
+<li ng-repeat="result in roomsShow.results">
+<h5>{{result.name}}</h5>
+<audio controls>
+<source src="{{result.preview_url}}">
+</audio>
+<p>Artist: {{result.artists[0].name}}</p>
+<p>Album: {{result.album.name}}</p>
+<p>{{result.uri}}</p>
+<button ng-click="roomsShow.addToPlaylist(result.uri)">Add to Playlist</button>
+<iframe src="{{roomsShow.player}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+</li>
+</ul>
+</div>
 
-    <div ng-if="roomsShow.searchArtistAlbums">
-      <ul>
-        <li ng-repeat="item in roomsShow.artistAlbums">
-        <p>{{item.name}}</p>
-        <img src="{{item.images[0].url}}" height="100px" width="100px">
-        <div ng-init="tracks = roomsShow.fetchTracks(item.id)">
+<div ng-if="roomsShow.searchArtistAlbums">
+<ul>
+<li ng-repeat="item in roomsShow.artistAlbums">
+<p>{{item.name}}</p>
+<img src="{{item.images[0].url}}" height="100px" width="100px">
+<div ng-init="tracks = roomsShow.fetchTracks(item.id)">
 
-        <ul>
-          <li ng-repeat="track in roomsShow.albumTracks">
-          <p>{{track.name}}</p>
-          <p>{{track.songUri}}</p>
-          <button ng-click="roomsShow.addToPlaylist(track.songUri)">Add to Playlist</button>
-        </li>
-        </ul>
-        </div>
-      </li>
-      </ul>
-    </div>
-  </div>
+<ul>
+<li ng-repeat="track in roomsShow.albumTracks">
+<p>{{track.name}}</p>
+<p>{{track.songUri}}</p>
+<button ng-click="roomsShow.addToPlaylist(track.songUri)">Add to Playlist</button>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div> -->
