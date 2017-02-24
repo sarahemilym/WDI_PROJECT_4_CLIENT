@@ -3,13 +3,13 @@
     <section ng-if="!home.showRegister">
       <ng-include src="'/js/views/users/login.html'"></ng-include>
       <p class="text-right">
-        <a ng-click="home.toggleShowRegister()">Or register</a>
+        <a ng-click="home.toggleShowRegister()" class="auth-toggle">Not already registered?</a>
       </p>
     </section>
     <section ng-if="home.showRegister">
       <ng-include src="'/js/views/users/register.html'"></ng-include>
       <p class="text-right">
-        <a ng-click="home.toggleShowRegister()">Or login</a>
+        <a ng-click="home.toggleShowRegister()" class="auth-toggle">Already registered?</a>
       </p>
     </section>
   </div>

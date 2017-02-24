@@ -14,4 +14,10 @@
 button.btn.btn-primary{
   background: none;
   border: none;
+  color: $primary-color;
 }
+
+input.btn.btn-primary.btn-block:active{
+    outline: none;
+    background: $primary-color;
+  }

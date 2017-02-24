@@ -13,9 +13,9 @@
             <input class="btn btn-primary btn-block" type="submit" value="Submit" />
           </div>
         </form>
-        <ul ng-if="roomsShow.resultArray" class="list-unstyled">
+        <ul ng-if="roomsShow.resultArray" class="list-unstyled results">
           <li ng-repeat="user in roomsShow.resultArray">
-            <h6>{{user.first_name}} {{user.last_name}} - {{user.email}}</h6>
+            <h4>{{user.first_name}} {{user.last_name}} - {{user.email}}</h4>
             <button
             class="btn btn-primary"
             ng-click="roomsShow.sendRequest(user.id)">
@@ -32,8 +32,8 @@
           <input class="btn btn-primary btn-block" type="submit" value="Submit" />
         </div>
       </form>
-      <ul ng-if="roomsShow.results" class="list-unstyled">
-        <li ng-repeat="track in roomsShow.results">
+      <ul ng-if="roomsShow.results" class="list-unstyled results">
+        <li ng-repeat="track in roomsShow.results" class="animated fadeIn">
           <h4>{{track.name}}</h4>
           <button
           class="btn btn-primary"

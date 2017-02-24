@@ -12,3 +12,40 @@ nav.navbar.navbar-default {
     background-color: black;
     border-color: black;
 }
+
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: $primary-color;
+    background-color: transparent;
+}
+
+.navbar-default .navbar-brand {
+  color: $text-color;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: $text-color;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: $primary-color;
+}
+
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    color: $text-color;
+    background-color: $background-color;
+}
+
+.navbar-nav > li > .dropdown-menu{
+  background: $background-color;
+  a{
+    color: $text-color;
+
+    &:hover {
+      color: $background-color;
+    }
+  }
+
+
+}
