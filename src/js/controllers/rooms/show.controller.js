@@ -37,6 +37,14 @@ function RoomsShowCtrl(
   vm.users  = User.query();
   vm.status = ActionCableSocketWrangler;
   vm.showInviteFriends = false;
+  // vm.user = CurrentUserService.currentUser.id;
+  // whosRoom();
+
+  // function whosRoom() {
+  //   const room = vm.room;
+  //   // console.log('user', vm.user)
+  //   console.log('room', room)
+  // }
 
   vm.searchTracks = (text) => {
     $http
