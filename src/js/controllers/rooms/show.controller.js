@@ -36,6 +36,7 @@ function RoomsShowCtrl(
   vm.room   = Room.get($stateParams);
   vm.users  = User.query();
   vm.status = ActionCableSocketWrangler;
+  vm.showInviteFriends = false;
 
   vm.searchTracks = (text) => {
     $http
@@ -81,6 +82,14 @@ function RoomsShowCtrl(
         vm.resultArray.push(user);
       }
     });
+  };
+
+  vm.inviteFriends = () => {
+    vm.showInviteFriends = true;
+  };
+
+  vm.hideInviteFriends = () => {
+    vm.showInviteFriends = false;
   };
 
   vm.sendRequest = (userId) => {

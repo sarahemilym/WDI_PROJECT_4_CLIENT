@@ -4,43 +4,45 @@
   <iframe id="player" ng-if="roomsShow.room.track_uri" ng-src="{{ roomsShow.room.track_uri | spotifyEmbedUrl }}" width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>
 
   <div class="search-music">
-    <div class="row">
-      <div class="col-sm-6 col-md-6 col-lg-6">
-        <h4>Add User</h4>
-        <form ng-submit="roomsShow.search(roomsShow.searchText)">
-          <div class="form-group">
-            <input type="text" class="form-control"  ng-model="roomsShow.searchText" name="searchUserId" placeholder="Add a user" required>
-            <input class="btn btn-primary btn-block" type="submit" value="Submit" />
-          </div>
-        </form>
-        <ul ng-if="roomsShow.resultArray" class="list-unstyled results">
-          <li ng-repeat="user in roomsShow.resultArray">
-            <h4>{{user.first_name}} {{user.last_name}} - {{user.email}}</h4>
-            <button
-            class="btn btn-primary"
-            ng-click="roomsShow.sendRequest(user.id)">
-            Add
-          </button>
-        </li>
-      </ul>
-    </div>
-    <div class="col-sm-6 col-md-6 col-lg-6">
-      <h4>Add Track</h4>
-      <form ng-submit="roomsShow.searchTracks(roomsShow.searchTracksText)">
+    <a class="btn btn-block btn-primary" ng-click="roomsShow.inviteFriends()" ng-if="!roomsShow.showInviteFriends">Invite Friends</a>
+    <div class="inviteFriend" ng-if="roomsShow.showInviteFriends">
+
+      <h4>Invite Friends</h4>
+      <form ng-submit="roomsShow.search(roomsShow.searchText)">
         <div class="form-group">
-          <input type="text" class="form-control"  ng-model="roomsShow.searchTracksText" name="searchTracks" placeholder="Search Tracks" required>
+          <input type="text" class="form-control"  ng-model="roomsShow.searchText" name="searchUserId" placeholder="Add a user" required>
           <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+          <input class="btn btn-primary btn-block" type="close" ng-click="roomsShow.hideInviteFriends()" value="Close" />
         </div>
       </form>
-      <ul ng-if="roomsShow.results" class="list-unstyled results">
-        <li ng-repeat="track in roomsShow.results" class="animated fadeIn">
-          <h4>{{track.name}}</h4>
+      <ul ng-if="roomsShow.resultArray" class="list-unstyled results">
+        <li ng-repeat="user in roomsShow.resultArray">
+          <h4>{{user.first_name}} {{user.last_name}} - {{user.email}}</h4>
           <button
           class="btn btn-primary"
-          ng-click="roomsShow.showTrack(track)">Play</button>
-        </li>
-      </ul>
-    </div>
+          ng-click="roomsShow.sendRequest(user.id)">
+          Add
+        </button>
+      </li>
+      <a class="btn btn-block btn-primary" ng-click="roomsShow.hideInviteFriends()">Close</a>
+    </ul>
+  </div>
+  <div class="addTrack">
+    <h4>Add Track</h4>
+    <form ng-submit="roomsShow.searchTracks(roomsShow.searchTracksText)">
+      <div class="form-group">
+        <input type="text" class="form-control"  ng-model="roomsShow.searchTracksText" name="searchTracks" placeholder="Search Tracks" required>
+        <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+      </div>
+    </form>
+    <ul ng-if="roomsShow.results" class="list-unstyled results">
+      <li ng-repeat="track in roomsShow.results" class="animated fadeIn">
+        <h4>{{track.name}}</h4>
+        <button
+        class="btn btn-primary"
+        ng-click="roomsShow.showTrack(track)">Play</button>
+      </li>
+    </ul>
   </div>
 </div>
 
