@@ -1,5 +1,8 @@
 angular
   .module('MuSync')
-  .run(function (ActionCableConfig){
-    ActionCableConfig.debug = true;
-  });
+  .run(ActionCable);
+
+ActionCable.$inject = ['ActionCableConfig'];
+function ActionCable(ActionCableConfig){
+  ActionCableConfig.debug = true;
+}
