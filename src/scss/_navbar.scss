@@ -4,6 +4,11 @@ nav.navbar.navbar-default {
     color: $text-color;
 }
 
+.logo {
+  height: 77px;
+  width: 91px;
+}
+
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
   border-color: $background-color;
 }

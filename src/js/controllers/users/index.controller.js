@@ -42,7 +42,7 @@ function UsersIndexCtrl(User, $http) {
 
   function search(){
     $http
-      .get('http://localhost:3000/users')
+      .get('https://musync-api.herokuapp.com/users')
       .then(response => {
         const searchItem = response.data;
         vm.resultArray = [];
