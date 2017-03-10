@@ -9,6 +9,8 @@ function RequestsIndexCtrl(Request) {
   const vm = this;
   vm.requests = Request.query();
 
+  console.log(vm.requests)
+
   vm.accept = (request) => {
     Request
     .accept({ id: request.id }).$promise

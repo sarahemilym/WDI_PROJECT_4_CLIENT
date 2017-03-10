@@ -21,8 +21,12 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider, $sceDeleg
   });
 
   $stateProvider
-  .state('home', {
+  .state('landing', {
     url: '/',
+    templateUrl: '/js/views/landing.html'
+  })
+  .state('home', {
+    url: '/enter',
     templateUrl: '/js/views/home.html',
     controller: 'HomeCtrl',
     controllerAs: 'home'

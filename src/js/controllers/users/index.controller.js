@@ -41,8 +41,8 @@ function UsersIndexCtrl(User, $http) {
   // }
 
   function search(){
-    $http
-      .get('https://musync-api.herokuapp.com/users')
+    User
+      .get
       .then(response => {
         const searchItem = response.data;
         vm.resultArray = [];
