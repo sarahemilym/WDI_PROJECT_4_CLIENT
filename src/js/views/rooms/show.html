@@ -1,10 +1,12 @@
 <section class="container">
-  <h1 class="title">{{roomsShow.room.name}} by {{roomsShow.room.user.first_name }}</h1>
+  <h1 ng-if="!roomsShow.yourRoom" class="title">{{roomsShow.room.name}} by {{roomsShow.room.user.first_name }}</h1>
+  <h1 ng-if="roomsShow.yourRoom" class="title">{{roomsShow.room.name}} by You</h1>
+
 
   <iframe id="player" ng-if="roomsShow.room.track_uri" ng-src="{{ roomsShow.room.track_uri | spotifyEmbedUrl }}" width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>
 
   <div class="search-music">
-    <a class="btn btn-block btn-primary" ng-click="roomsShow.inviteFriends()" ng-if="!roomsShow.showInviteFriends">Invite Friends</a>
+    <a class="btn btn-block btn-primary" ng-click="roomsShow.inviteFriends()" ng-if="!roomsShow.showInviteFriends && roomsShow.yourRoom">Invite Friends</a>
     <div class="inviteFriend" ng-if="roomsShow.showInviteFriends">
 
       <h4>Invite Friends</h4>
@@ -46,7 +48,7 @@
   </div>
 </div>
 
-<!-- <iframe ng-src="{{roomsShow.room.uri | spotifyEmbedUrl }}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe> -->
+<button ng-if="roomsShow.yourRoom" class="btn btn-danger room" ng-click="roomsShow.delete()">Delete Room</button>
 </section>
 
 

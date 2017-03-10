@@ -33,18 +33,23 @@ function RoomsShowCtrl(
   ActionCableChannel
 ){
   const vm = this;
-  vm.room   = Room.get($stateParams);
   vm.users  = User.query();
   vm.status = ActionCableSocketWrangler;
   vm.showInviteFriends = false;
   // vm.user = CurrentUserService.currentUser.id;
-  // whosRoom();
 
-  // function whosRoom() {
-  //   const room = vm.room;
-  //   // console.log('user', vm.user)
-  //   console.log('room', room)
-  // }
+  Room
+  .get($stateParams)
+  .$promise
+  .then((response) => {
+    vm.room = response;
+
+    if (vm.room.user.id === CurrentUserService.currentUser.id) {
+      vm.yourRoom = true;
+    } else {
+      vm.yourRoom = false;
+    }
+  });
 
   vm.searchTracks = (text) => {
     $http
@@ -57,22 +62,31 @@ function RoomsShowCtrl(
   vm.showTrack = (track) => {
     vm.room.track_uri = track.uri;
     Room
-      .update($stateParams, { room: vm.room }).$promise
-      .then(data => {
-        vm.sendTrackToRoom(vm.room.track_uri);
-        vm.results = false;
-        // const url =     `https://api.spotify.com/v1/users/${vm.room.user.spotify_id}/playlists/${vm.room.playlist_id}/tracks?uris=${vm.room.track_uri}`;
-        // $http
-        // .post(url)
-        // .then(response => {
-        //   console.log('updated playlist')
-        // }, err => {
-        //   console.error(err);
-        // });
+    .update($stateParams, { room: vm.room }).$promise
+    .then(data => {
+      vm.sendTrackToRoom(vm.room.track_uri);
+      vm.results = false;
+      // const url =     `https://api.spotify.com/v1/users/${vm.room.user.spotify_id}/playlists/${vm.room.playlist_id}/tracks?uris=${vm.room.track_uri}`;
+      // $http
+      // .post(url)
+      // .then(response => {
+      //   console.log('updated playlist')
+      // }, err => {
+      //   console.error(err);
+      // });
 
-      }, err => {
-        console.error(err);
-      });
+    }, err => {
+      console.error(err);
+    });
+  };
+
+  vm.delete = () => {
+    Room
+    .delete($stateParams)
+    .$promise
+    .then(() => {
+      $state.go('home');
+    });
   };
 
   vm.search = (searchText) => {

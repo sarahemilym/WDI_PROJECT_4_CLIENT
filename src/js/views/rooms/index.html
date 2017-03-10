@@ -1,9 +1,16 @@
 <section class="container roomsIndex">
   <a class="btn btn-block btn-primary" ui-sref="roomsCreate">Create a Room</a>
   <h1>Rooms</h1>
+  <p>Rooms with an <span style="color:#4717F6">*</span> are owned by you</p>
   <ul class="list-unstyled">
-    <li ng-repeat="room in roomsIndex.rooms track by $index">
+    <li ng-repeat="room in roomsIndex.otherRooms track by $index">
       <h3 ui-sref="roomsShow({ id: room.id })">{{room.name}}</h3>
     </li>
   </ul>
+  <ul class="list-unstyled">
+    <li ng-repeat="room in roomsIndex.yourRooms track by $index">
+      <h3 class="yourRoom" ui-sref="roomsShow({ id: room.id })">{{room.name}}</h3>
+    </li>
+  </ul>
+  {{roomsIndex.rooms}}
 </section>

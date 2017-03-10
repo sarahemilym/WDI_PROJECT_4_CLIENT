@@ -22,3 +22,15 @@ input.btn.btn-primary.btn-block:active{
     background: $primary-color;
     color: $text-color;
   }
+
+  button.btn.btn-danger.room {
+    background: #0E0B16;
+    border: none;
+    transition: background 0.5s;
+    width: 100%;
+
+    &:hover{
+      background: #d9534f;
+      transition: background 0.5s;
+    }
+  }

@@ -11,6 +11,11 @@ a.btn.btn-block.btn-primary:hover {
 .roomsIndex {
   text-align: center;
 
+  .yourRoom:after {
+   content:"*";
+   color:$primary-color;
+}
+
   h3 {
     font-weight: 100;
   }
