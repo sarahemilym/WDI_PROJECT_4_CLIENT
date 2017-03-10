@@ -7,9 +7,29 @@ RequestsIndexCtrl.$inject = [
 ];
 function RequestsIndexCtrl(Request) {
   const vm = this;
-  vm.requests = Request.query();
+  // vm.requests = Request.query().then(() => console.log('requests', vm.requests));
 
-  console.log(vm.requests)
+
+  // Request.query({}, function(response) {
+  //     vm.requests = response;
+  //     console.log('requests', vm.requests, 'length', vm.requests.length)
+  //     // Do stuff that depends on $scope.regions here
+  // });
+
+  Request.query()
+  .$promise
+  .then(response => {
+    vm.requests = response;
+
+    if (vm.requests.length === 0) {
+      vm.noRequests = true;
+    } else {
+      vm.noRequests = false;
+    }
+  });
+
+
+
 
   vm.accept = (request) => {
     Request
