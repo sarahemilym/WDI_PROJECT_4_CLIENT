@@ -1,6 +1,7 @@
 <section class="container">
   <h1 ng-if="!roomsShow.yourRoom" class="title">{{roomsShow.room.name}} by {{roomsShow.room.user.first_name }}</h1>
   <h1 ng-if="roomsShow.yourRoom" class="title">{{roomsShow.room.name}} by You</h1>
+  <a ui-sref="roomsIndex" class="back">Back to rooms</a>
 
 
   <iframe id="player" ng-if="roomsShow.room.track_uri" ng-src="{{ roomsShow.room.track_uri | spotifyEmbedUrl }}" width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>
@@ -10,6 +11,7 @@
     <div class="inviteFriend" ng-if="roomsShow.showInviteFriends">
 
       <h4>Invite Friends</h4>
+      <p>Find friends by name, email of spotify username</p>
       <form ng-submit="roomsShow.search(roomsShow.searchText)">
         <div class="form-group">
           <input type="text" class="form-control"  ng-model="roomsShow.searchText" name="searchUserId" placeholder="Add a user" required>
@@ -18,6 +20,7 @@
         </div>
       </form>
       <ul ng-if="roomsShow.resultArray" class="list-unstyled results">
+        <p>Searched for: {{roomsShow.searchedFriend}}</p>
         <li ng-repeat="user in roomsShow.resultArray">
           <h4>{{user.first_name}} {{user.last_name}} - {{user.email}}</h4>
           <button
@@ -38,6 +41,7 @@
       </div>
     </form>
     <ul ng-if="roomsShow.results" class="list-unstyled results">
+      <p>Searched for: {{roomsShow.searchedTrack}}</p>
       <li ng-repeat="track in roomsShow.results" class="animated fadeIn">
         <h4>{{track.name}}</h4>
         <button

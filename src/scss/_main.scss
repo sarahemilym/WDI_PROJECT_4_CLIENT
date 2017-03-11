@@ -1,8 +1,21 @@
 body {
   background: $background-color;
   color: $text-color;
+  // font-family: 'Khula', sans-serif;
 }
 
 .auth-toggle {
   color: $primary-color;
+}
+
+.back {
+  background: none;
+  border: none;
+  color: $text-color;
+  text-align: center;
+
+  &:hover {
+    text-decoration: none;
+    color: $text-color;
+  }
 }

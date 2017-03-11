@@ -43,7 +43,7 @@ function RoomsShowCtrl(
   .$promise
   .then((response) => {
     vm.room = response;
-
+    console.log(vm.room);
     if (vm.room.user.id === CurrentUserService.currentUser.id) {
       vm.yourRoom = true;
     } else {
@@ -52,10 +52,12 @@ function RoomsShowCtrl(
   });
 
   vm.searchTracks = (text) => {
+    vm.searchedTrack = text;
     $http
     .get(`https://api.spotify.com/v1/search?q=${text}&type=track`)
     .then(response => {
       vm.results = response.data.tracks.items;
+      vm.searchTracksText = '';
     });
   };
 
@@ -90,6 +92,7 @@ function RoomsShowCtrl(
   };
 
   vm.search = (searchText) => {
+    vm.searchedFriend = searchText;
     vm.resultArray = [];
     vm.users.forEach(user => {
       if (searchText == user.id){
@@ -103,6 +106,7 @@ function RoomsShowCtrl(
       } else if (searchText.toLowerCase() === user.spotify_id.toLowerCase()){
         vm.resultArray.push(user);
       }
+      vm.searchText = '';
     });
   };
 

@@ -8,7 +8,7 @@ function MainCtrl($rootScope, CurrentUserService, $state) {
 
   vm.logout = () => {
     CurrentUserService.removeUser();
-    $state.go('home');
+    $state.go('landing');
   };
 
   $rootScope.$on('loggedIn', () => {
