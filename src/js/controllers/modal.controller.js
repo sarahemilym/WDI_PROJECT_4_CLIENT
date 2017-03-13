@@ -5,14 +5,14 @@ angular
 ModalCtrl.$inject = [
   '$uibModal',
   '$log',
-  '$document'
-
+  '$document',
+  '$scope'
 ];
 function ModalCtrl(
   $uibModal,
   $log,
-  $document
-
+  $document,
+  $scope
 ) {
 
   var $ctrl = this;
