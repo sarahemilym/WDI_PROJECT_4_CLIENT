@@ -1,14 +1,53 @@
-.landing-title {
-  color: $primary-color;
-  font-size: 126px;
-  text-align: center;
-  margin: 92px 0 35px 0;
-}
-
 .weak {
   font-weight: lighter;
 }
 
-button.btn.btn-primary.enter {
+a.btn.btn-block.btn-primary.enter {
   text-align: center;
+  z-index: 30;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 410px;
+  margin-left: 560px;
+
+}
+
+.landing-page {
+  background: url('../images/musync-background2.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  // filter: grayscale(100%);
+  color: $primary-color;
+  width: 100%;
+  height: 100vh;
+  margin-top: -93px;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.landing-title {
+  color: $primary-color;
+  font-size: 82px;
+  text-align: center;
+  margin: 278px 0 35px 0;
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  right: 0;
+}
+
+.overlay {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:100%;
+  height:100%;
+  display: block;
+  z-index:0;
+  // background-color: rgba(14,11,22,0.8);
+  background-color: rgba(4,2,10,0.8);
 }
