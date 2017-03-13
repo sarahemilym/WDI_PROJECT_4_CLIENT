@@ -1,3 +1,3 @@
 angular
   .module('MuSync')
-  .constant('API', 'https://musyncc.herokuapp.com');
+  .constant('API', 'https://musync-api.herokuapp.com');
