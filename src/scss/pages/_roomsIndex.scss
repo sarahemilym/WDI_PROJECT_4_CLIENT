@@ -1,11 +1,21 @@
-a.btn.btn-block.btn-primary {
-  background: $background-color;
-  border: none;
-  transition: background 0.5s;
-}
+// a.btn.btn-block.btn-primary {
+//   background: $background-color;
+//   border: none;
+//   transition: background 0.5s;
+// }
 
-a.btn.btn-block.btn-primary:hover {
-  background: $primary-color;
+// a.btn.btn-block.btn-primary:hover {
+//   background: $primary-color;
+// }
+
+a.btn.btn-block.btn-primary.large {
+  border: 2px solid #4717F6;
+  color: #E7DFDD;
+  width: 100%;
+  line-height: 6px;
+  margin: 10px auto;
+  background: $background-color;
+  height: 25px;
 }
 
 .roomsIndex {

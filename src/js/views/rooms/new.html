@@ -1,10 +1,12 @@
 <section class="container">
   <h2 class="title newRoom">New Room</h2>
-  <a ui-sref="roomsIndex" class="back create">Back to rooms</a>
+  <a ui-sref="roomsIndex" class="back">Back to rooms</a>
+  <div class="create-room">
   <form ng-submit="roomsCreate.create(roomsCreate.room)">
     <div class="form-group">
       <input type="text" class="form-control" name="name" ng-model="roomsCreate.room.name" placeholder="Name" required>
     </div>
     <input type="submit" class="btn btn-block btn-primary" value="Add">
   </form>
+</div>
 </section>

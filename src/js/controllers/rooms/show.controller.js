@@ -36,6 +36,7 @@ function RoomsShowCtrl(
   vm.users  = User.query();
   vm.status = ActionCableSocketWrangler;
   vm.showInviteFriends = false;
+  vm.noResults = false;
   // vm.user = CurrentUserService.currentUser.id;
 
   Room
@@ -43,12 +44,14 @@ function RoomsShowCtrl(
   .$promise
   .then((response) => {
     vm.room = response;
-    console.log(vm.room);
     if (vm.room.user.id === CurrentUserService.currentUser.id) {
       vm.yourRoom = true;
     } else {
       vm.yourRoom = false;
     }
+  })
+  .catch(err => {
+    console.log(err);
   });
 
   vm.searchTracks = (text) => {
@@ -57,6 +60,7 @@ function RoomsShowCtrl(
     .get(`https://api.spotify.com/v1/search?q=${text}&type=track`)
     .then(response => {
       vm.results = response.data.tracks.items;
+      console.log('results', vm.results)
       vm.searchTracksText = '';
     });
   };
@@ -92,23 +96,28 @@ function RoomsShowCtrl(
   };
 
   vm.search = (searchText) => {
+    console.log('searched', searchText)
     vm.searchedFriend = searchText;
     vm.resultArray = [];
     vm.users.forEach(user => {
-      if (searchText == user.id){
+      console.log('vm.searchedFriend here', vm.searchedFriend)
+      if (vm.searchedFriend == user.id){
         vm.resultArray.push(user);
-      } else if (searchText.toLowerCase() === user.email.toLowerCase()){
+      } else if (vm.searchedFriend.toLowerCase() === user.email.toLowerCase()){
         vm.resultArray.push(user);
-      } else if (searchText.toLowerCase() === user.first_name.toLowerCase()){
+      } else if (vm.searchedFriend.toLowerCase() === user.first_name.toLowerCase()){
         vm.resultArray.push(user);
-      } else if (searchText.toLowerCase() === user.last_name.toLowerCase()){
+      } else if (vm.searchedFriend.toLowerCase() === user.last_name.toLowerCase()){
         vm.resultArray.push(user);
-      } else if (searchText.toLowerCase() === user.spotify_id.toLowerCase()){
+      } else if (vm.searchedFriend.toLowerCase() === user.spotify_id.toLowerCase()){
         vm.resultArray.push(user);
+      } else {
+        vm.noResults = true;
       }
       vm.searchText = '';
     });
   };
+
 
   vm.inviteFriends = () => {
     vm.showInviteFriends = true;
@@ -119,6 +128,10 @@ function RoomsShowCtrl(
   };
 
   vm.sendRequest = (userId) => {
+    vm.requestSent = true;
+    setTimeout(function(){
+      vm.requestSent = false;
+    }, 5000);
     Request
     .save({
       receiver_id: userId,

@@ -8,6 +8,6 @@ function roomFactory(API, $resource) {
     query: { method: 'GET', url: `${API}/rooms`, isArray: true },
     update: { method: 'PUT', url: `${API}/rooms/:id`},
     new: { method: 'POST', url: `${API}/rooms`},
-    delete: { method: 'DELETE', url: `${API}/rooms/:id`}
+    delete: { method: 'DESTROY', url: `${API}/rooms/:id`}
   });
 }

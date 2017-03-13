@@ -3,7 +3,16 @@
 }
 
 .title {
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
+  text-align: center;
+}
+
+li.animated.fadeIn {
+  width: 277px;
+  float: left;
+  margin-bottom: 10px;
+  text-align: center;
+  height: 200px;
 }
 
 
@@ -12,9 +21,23 @@
 }
 
 button.btn.btn-primary{
-  background: none;
-  border: none;
-  color: $primary-color;
+  // background: none;
+  // border: none;
+  // color: $primary-color;
+    border: 2px solid #4717F6;
+    color: #E7DFDD;
+    width: 122px;
+    line-height: 6px;
+    margin: 10px auto;
+    background: $background-color;
+    height: 25px;
+    outline: none;
+
+    &:active {
+      background-color: $primary-color;
+      color: $text-color;
+      outline: none;
+    }
 }
 
 input.btn.btn-primary.btn-block:active{
@@ -28,9 +51,49 @@ input.btn.btn-primary.btn-block:active{
     border: none;
     transition: background 0.5s;
     width: 100%;
+    margin: 10px 0 50px 0;
 
     &:hover{
       background: #d9534f;
       transition: background 0.5s;
     }
   }
+
+button.btn.btn-primary.play-button {
+  margin-top: -7px;
+}
+
+p.animated.fadeOut {
+  animation-delay: 2s;
+  animation-duration: 3s;
+}
+
+.modal-title {
+  text-align: center;
+}
+
+.modal-content {
+  background: $background-color;
+  color: $text-color;
+  width: 420px;
+}
+
+.searched-for {
+  padding: 10px 0 10px 0;
+}
+
+h4.friends-results {
+  display: inline;
+  float: left;
+  font-weight: 200;
+}
+
+button.btn.btn-primary.add {
+  padding: 0;
+  width: 42px;
+  float: right;
+}
+
+li.results-list {
+  height: 50px;
+}

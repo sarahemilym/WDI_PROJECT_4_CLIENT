@@ -2,26 +2,83 @@
   <h1 ng-if="!roomsShow.yourRoom" class="title">{{roomsShow.room.name}} by {{roomsShow.room.user.first_name }}</h1>
   <h1 ng-if="roomsShow.yourRoom" class="title">{{roomsShow.room.name}} by You</h1>
   <a ui-sref="roomsIndex" class="back">Back to rooms</a>
+  <div ng-controller="ModalCtrl as $ctrl" class="modal-demo">
+      <script type="text/ng-template" id="stackedModal.html">
+          <div class="modal-header">
+              <h3 class="modal-title" id="modal-title">Invite Friends</h3>
+          </div>
+          <div ng-controller="RoomsShowCtrl as roomsShow" class="modal-body" id="modal-body">
+            <p>Find friends by name, email of spotify username</p>
+            <p ng-if="roomsShow.requestSent" class="animated fadeOut">Request sent!</p>
+            <form ng-submit="roomsShow.search(roomsShow.searchText)">
+              <div class="form-group">
+                <input type="text" class="form-control"  ng-model="roomsShow.searchText" name="searchUserId" placeholder="Add a user" required>
+                <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+              </div>
+            </form>
+
+            <ul ng-if="roomsShow.resultArray" class="list-unstyled results">
+              <p class="searched-for">Searched for: {{roomsShow.searchedFriend}}</p>
+              <p ng-if="roomsShow.noResults">No results found!</p>
+              <li class="results-list" ng-repeat="user in roomsShow.resultArray">
+                <h4 class="friends-results">{{user.first_name}} {{user.last_name}} - {{user.email}}</h4>
+                <button
+                class="btn btn-primary add"
+                ng-click="roomsShow.sendRequest(user.id)">
+                Add
+              </button>
+            </div>
+            </li>
+            </ul>
+          <div class="modal-footer">
+              <button class="btn btn-primary btn-block" type="button" ng-click="$ctrl.cancel()">Close</button>
+          </div>
+      </script>
+      <button ng-if="!roomsShow.showInviteFriends && roomsShow.yourRoom" type="button" class="btn btn-primary btn-block" ng-click="$ctrl.open(); roomsShow.inviteFriends()">Invite Friends</button>
+      <div ng-show="$ctrl.selected">Selection from a modal: {{ $ctrl.selected }}</div>
+      <div class="modal-parent">
+      </div>
+  </div>
 
 
   <iframe id="player" ng-if="roomsShow.room.track_uri" ng-src="{{ roomsShow.room.track_uri | spotifyEmbedUrl }}" width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>
 
-  <div class="search-music">
-    <a class="btn btn-block btn-primary" ng-click="roomsShow.inviteFriends()" ng-if="!roomsShow.showInviteFriends && roomsShow.yourRoom">Invite Friends</a>
+
+
+
+
+
+
+
+
+
+
+    <!-- <a class="btn btn-block btn-primary" ng-click="roomsShow.inviteFriends()" ng-if="!roomsShow.showInviteFriends && roomsShow.yourRoom">Invite Friends</a>
     <div class="inviteFriend" ng-if="roomsShow.showInviteFriends">
 
+
       <h4>Invite Friends</h4>
-      <p>Find friends by name, email of spotify username</p>
+      <p>Find friends by name, email or spotify username</p>
+      <p ng-if="roomsShow.requestSent" class="animated fadeOut">Request sent!</p>
       <form ng-submit="roomsShow.search(roomsShow.searchText)">
         <div class="form-group">
           <input type="text" class="form-control"  ng-model="roomsShow.searchText" name="searchUserId" placeholder="Add a user" required>
           <input class="btn btn-primary btn-block" type="submit" value="Submit" />
           <input class="btn btn-primary btn-block" type="close" ng-click="roomsShow.hideInviteFriends()" value="Close" />
         </div>
-      </form>
-      <ul ng-if="roomsShow.resultArray" class="list-unstyled results">
+      </form> -->
+
+
+
+
+
+
+
+<!--
+      <ul ng-if="roomsShow.resultArray" class="list-unstyled results row">
         <p>Searched for: {{roomsShow.searchedFriend}}</p>
-        <li ng-repeat="user in roomsShow.resultArray">
+        <p ng-if="roomsShow.noResults">No results found!</p>
+        <li class="col-md-4" ng-repeat="user in roomsShow.resultArray">
           <h4>{{user.first_name}} {{user.last_name}} - {{user.email}}</h4>
           <button
           class="btn btn-primary"
@@ -32,6 +89,10 @@
       <a class="btn btn-block btn-primary" ng-click="roomsShow.hideInviteFriends()">Close</a>
     </ul>
   </div>
+</div>
+  </div> -->
+
+<div class="search-music">
   <div class="addTrack">
     <h4>Add Track</h4>
     <form ng-submit="roomsShow.searchTracks(roomsShow.searchTracksText)">
@@ -43,9 +104,11 @@
     <ul ng-if="roomsShow.results" class="list-unstyled results">
       <p>Searched for: {{roomsShow.searchedTrack}}</p>
       <li ng-repeat="track in roomsShow.results" class="animated fadeIn">
+        <img src="{{track.album.images[0].url}}" height="81px" alt="Album Artwork">
         <h4>{{track.name}}</h4>
+        <p>by {{track.artists[0].name}}</p>
         <button
-        class="btn btn-primary"
+        class="btn btn-primary play-button"
         ng-click="roomsShow.showTrack(track)">Play</button>
       </li>
     </ul>
