@@ -2,8 +2,15 @@ angular
 .module('MuSync')
 .controller('ModalCtrl', ModalCtrl);
 
-ModalCtrl.$inject = ['$uibModal', '$log', '$document'];
-function ModalCtrl ($uibModal, $log, $document) {
+ModalCtrl.$inject = [
+  '$uibModal',
+  '$log',
+  '$document'
+];
+function ModalCtrl(
+  $uibModal,
+  $log, 
+  $document) {
 
   var $ctrl = this;
   $ctrl.items = ['item1', 'item2', 'item3'];
