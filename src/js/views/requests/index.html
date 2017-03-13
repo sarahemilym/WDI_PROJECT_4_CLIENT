@@ -1,22 +1,20 @@
 <section class="container requestsIndex">
-
-<h1 class="title">Invites</h1>
-
+  <h1 class="title">Invites</h1>
   <div ng-if="requestsIndex.noRequests">
     <h4>No pending invites</h4>
   </div>
 
-  <div ng-if="!requestsIndex.noRequests"
-  <ul class="list-unstyled requestMessages">
-    <li ng-repeat="request in requestsIndex.requests">
-      <h4 class="requests">{{request.sender.first_name}} has invited you to {{request.room.name}}</h4>
-      <button
-      class="btn btn-success"
-      ng-click="requestsIndex.accept(request)">Accept</button>
-      <button
-      class="btn btn-danger"
-      ng-click="requestsIndex.reject(request)">Reject</button>
-    </li>
-  </ul>
-</div>
+  <div ng-if="!requestsIndex.noRequests">
+    <ul class="list-unstyled requestMessages">
+      <li ng-repeat="request in requestsIndex.requests">
+        <h4 class="requests">{{request.sender.first_name}} has invited you to {{request.room.name}}</h4>
+        <button
+        class="btn btn-success"
+        ng-click="requestsIndex.accept(request)">Accept</button>
+        <button
+        class="btn btn-danger"
+        ng-click="requestsIndex.reject(request)">Reject</button>
+      </li>
+    </ul>
+  </div>
 </section>
