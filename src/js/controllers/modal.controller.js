@@ -6,15 +6,14 @@ ModalCtrl.$inject = [
   '$uibModal',
   '$log',
   '$document',
-  '$scope',
-  '$value'
+  '$scope'
 ];
 function ModalCtrl(
   $uibModal,
   $log,
   $document,
-  $scope,
-  $value) {
+  $scope
+) {
 
   var $ctrl = this;
   $ctrl.items = ['item1', 'item2', 'item3'];
