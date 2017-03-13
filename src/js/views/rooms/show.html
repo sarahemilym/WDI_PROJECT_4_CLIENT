@@ -7,7 +7,7 @@
           <div class="modal-header">
               <h3 class="modal-title" id="modal-title">Invite Friends</h3>
           </div>
-          <div ng-controller="RoomsShowCtrl as roomsShow" class="modal-body" id="modal-body">
+          <div class="modal-body" id="modal-body">
             <p>Find friends by name, email of spotify username</p>
             <p ng-if="roomsShow.requestSent" class="animated fadeOut">Request sent!</p>
             <form ng-submit="roomsShow.search(roomsShow.searchText)">
