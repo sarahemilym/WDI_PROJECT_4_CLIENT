@@ -5,9 +5,9 @@ ___
 
 ## MuSync
 
-#### About
-
 ![musync-background](https://cloud.githubusercontent.com/assets/23199168/23894467/22282208-089a-11e7-926f-82db2e709fb7.png)
+
+#### About
 
 A music syncing app, where users are invited into private rooms with friends, where the same track will play for all members in the room. Any user can create a room and invite registered users; all users must have a Spotify account (this can be a free _or_ premium account)
 
