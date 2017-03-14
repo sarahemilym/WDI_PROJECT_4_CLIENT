@@ -15,7 +15,8 @@ RoomsShowCtrl.$inject = [
   'Request',
   '$timeout',
   'ActionCableSocketWrangler',
-  'ActionCableChannel'
+  'ActionCableChannel',
+  '$uibModal'
 ];
 function RoomsShowCtrl(
   API,
@@ -30,13 +31,13 @@ function RoomsShowCtrl(
   Request,
   $timeout,
   ActionCableSocketWrangler,
-  ActionCableChannel
+  ActionCableChannel,
+  $uibModal
 ){
   const vm = this;
   vm.users  = User.query();
   vm.status = ActionCableSocketWrangler;
   vm.showInviteFriends = false;
-  vm.noResults = false;
   // vm.user = CurrentUserService.currentUser.id;
 
   Room
@@ -96,11 +97,10 @@ function RoomsShowCtrl(
   };
 
   vm.search = (searchText) => {
-    console.log('searched', searchText)
+    vm.noResults = false;
     vm.searchedFriend = searchText;
     vm.resultArray = [];
     vm.users.forEach(user => {
-      console.log('vm.searchedFriend here', vm.searchedFriend)
       if (vm.searchedFriend == user.id){
         vm.resultArray.push(user);
       } else if (vm.searchedFriend.toLowerCase() === user.email.toLowerCase()){
@@ -111,13 +111,11 @@ function RoomsShowCtrl(
         vm.resultArray.push(user);
       } else if (vm.searchedFriend.toLowerCase() === user.spotify_id.toLowerCase()){
         vm.resultArray.push(user);
-      } else {
-        vm.noResults = true;
       }
       vm.searchText = '';
+      console.log('results', vm.resultsArray)
     });
   };
-
 
   vm.inviteFriends = () => {
     vm.showInviteFriends = true;
